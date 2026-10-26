@@ -1,0 +1,4176 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="منصة سايبر زون - دليلك العربي الشامل والمبسط لتعلم البرمجة والأمن السيبراني، وفهم حماية الأجهزة وكواليس العمليات الرقمية بأسلوب عامي ممتع ومفهوم للجميع.">
+    <meta name="keywords" content="الأمن السيبراني, برمجة, بايثون, حماية الأجهزة, الهكر الأخلاقي, فحص الاختراق, كشف الاحتيال, سايبر زون">
+    <meta name="author" content="منصة سايبر زون">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="سايبر زون | دليلك للبرمجة والأمن السيبراني">
+    <meta property="og:description" content="تعلم البرمجة واحمِ نفسك في عالم الأمن السيبراني بدون تعقيد. شروحات مبسطة، كشف الفخاخ، وتفكيك أشهر العمليات الرقمية.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>سايبر زون | دليلك للبرمجة والأمن السيبراني</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* ==========================================================================
+   سايبر زون | Cyber Zone - Stylesheet
+   تصميم زجاجي داكن مريح للعين (Muted Dark Glassmorphism)
+   إضاءة هادئة وموزونة بدون توهج مبالغ فيه
+   ========================================================================== */
+
+:root {
+    --bg-primary: #06090f;
+    --bg-secondary: #0a0f18;
+    --glass-bg: rgba(13, 19, 30, 0.72);
+    --glass-bg-hover: rgba(18, 27, 43, 0.82);
+    --glass-card: rgba(11, 17, 28, 0.65);
+    --glass-card-hover: rgba(16, 25, 40, 0.8);
+    
+    /* حدود زجاجية ناعمة غير فاقعة */
+    --glass-border: rgba(148, 163, 184, 0.12);
+    --glass-border-hover: rgba(56, 189, 248, 0.35);
+    --glass-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+    
+    /* ألوان هادئة ومريحة للبصر */
+    --cyber-cyan: #22d3ee;
+    --cyber-blue: #38bdf8;
+    --cyber-emerald: #10b981;
+    --cyber-purple: #a855f7;
+    --cyber-rose: #f43f5e;
+    --cyber-amber: #f59e0b;
+    
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    
+    --font-main: 'Cairo', system-ui, -apple-system, sans-serif;
+    --font-code: 'Fira Code', monospace;
+    
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+    
+    --transition: all 0.25s ease-out;
+}
+
+/* Base & Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    direction: rtl;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.7;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Background Cyber Canvas (هادئ جداً كخلفية خفيفة) */
+#cyberCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.35; /* تقليل الشفافية والسطوع لمنع الإزعاج البصري */
+}
+
+/* مؤشر الماوس التفاعلي الهادئ */
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--cyber-cyan);
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+}
+
+.cursor-glow {
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+}
+
+/* حالة الماوس عند التفاعل */
+body.cursor-active .cursor-glow {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(56, 189, 248, 0.55);
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
+}
+
+/* Glassmorphism Styles */
+.glass-nav,
+.glass-card,
+.glass-pill,
+.glass-btn,
+.glass-footer {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: var(--glass-card);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+}
+
+/* تأثير تسليط الضوء الهادئ على البطاقات */
+.spotlight-card {
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.spotlight-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(56, 189, 248, 0.05),
+        transparent 45%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.spotlight-card:hover::before {
+    opacity: 1;
+}
+
+.spotlight-card:hover {
+    border-color: var(--glass-border-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+}
+
+/* تدرجات ونصوص هادئة ومريحة بدون فلاش نيون فاقع */
+.neon-text {
+    color: var(--cyber-cyan);
+    font-weight: 700;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.neon-warning {
+    color: var(--cyber-amber);
+}
+
+.neon-highlight {
+    color: var(--cyber-emerald);
+    font-weight: 700;
+}
+
+/* Navigation */
+.glass-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(6, 9, 15, 0.85);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    padding: 0.75rem 2rem;
+}
+
+.nav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: var(--cyber-cyan);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+
+.logo-badge {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: var(--transition);
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mobile-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--cyber-cyan);
+    font-size: 1.2rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+/* الأزرار الهادئة */
+.cyber-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.65rem 1.3rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-main);
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.primary-btn {
+    background: #0284c7;
+    color: #ffffff;
+    border: 1px solid #38bdf8;
+    box-shadow: 0 2px 10px rgba(2, 132, 199, 0.25);
+}
+
+.primary-btn:hover {
+    background: #0369a1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35);
+}
+
+.glass-btn {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--cyber-cyan);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+}
+
+.glass-btn:hover {
+    background: rgba(34, 211, 238, 0.08);
+    border-color: var(--cyber-cyan);
+    color: #fff;
+}
+
+.timeline-btn {
+    background: rgba(168, 85, 247, 0.1);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.25);
+}
+
+.timeline-btn:hover {
+    background: rgba(168, 85, 247, 0.18);
+    color: #fff;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 8.5rem 2rem 4rem;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-container {
+    max-width: 950px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1.1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.88rem;
+    color: var(--cyber-cyan);
+    background: rgba(34, 211, 238, 0.06);
+    border: 1px solid rgba(34, 211, 238, 0.18);
+}
+
+.pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--cyber-emerald);
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+.hero-desc {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 740px;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+/* Stats Cards */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.3rem;
+    width: 100%;
+    margin-top: 2.5rem;
+}
+
+.stat-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    text-align: right;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: rgba(56, 189, 248, 0.08);
+    color: var(--cyber-blue);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.stat-info h3 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.stat-info p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* Section Common Styles */
+.section {
+    padding: 5rem 2rem;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 3rem;
+}
+
+.section-header .sub-title {
+    display: inline-block;
+    color: var(--cyber-cyan);
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.5px;
+}
+
+.section-header .title {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-bottom: 0.8rem;
+}
+
+.section-header .description {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+}
+
+/* Cards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.6rem;
+}
+
+.info-card {
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-md);
+    background: rgba(34, 211, 238, 0.07);
+    border: 1px solid rgba(34, 211, 238, 0.18);
+    color: var(--cyber-cyan);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+
+.info-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #fff;
+}
+
+.info-card p {
+    color: var(--text-secondary);
+    font-size: 0.94rem;
+    margin-bottom: 1.3rem;
+    flex-grow: 1;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.tags span {
+    font-size: 0.78rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--cyber-cyan);
+}
+
+/* Code Preview Box */
+.code-preview-box {
+    margin-top: 2.5rem;
+    border-radius: var(--radius-lg);
+    background: #080d16;
+    border: 1px solid rgba(148, 163, 184, 0.12);
+    overflow: hidden;
+}
+
+.code-header {
+    background: rgba(14, 21, 33, 0.8);
+    padding: 0.8rem 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.window-dots {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.red { background-color: #ef4444; }
+.dot.yellow { background-color: #f59e0b; }
+.dot.green { background-color: #10b981; }
+
+.code-title {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.code-lang {
+    font-family: var(--font-code);
+    font-size: 0.78rem;
+    color: var(--cyber-cyan);
+    background: rgba(34, 211, 238, 0.08);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+}
+
+.code-body {
+    padding: 1.4rem;
+    font-family: var(--font-code);
+    font-size: 0.92rem;
+    color: #cbd5e1;
+    overflow-x: auto;
+    direction: ltr;
+    text-align: left;
+}
+
+.code-body .comment { color: #64748b; }
+.code-body .keyword { color: #f43f5e; font-weight: 600; }
+.code-body .function { color: #38bdf8; }
+.code-body .string { color: #34d399; }
+.code-body .number { color: #fbbf24; }
+
+/* Cyber Security Red vs Blue Teams */
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.8rem;
+    margin-bottom: 2.5rem;
+}
+
+.team-card {
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+}
+
+.team-card.red-team {
+    border-color: rgba(244, 63, 94, 0.2);
+}
+
+.team-card.red-team:hover {
+    border-color: rgba(244, 63, 94, 0.45);
+}
+
+.team-card.blue-team {
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+.team-card.blue-team:hover {
+    border-color: rgba(56, 189, 248, 0.45);
+}
+
+.team-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 1.1rem;
+}
+
+.red-team .team-badge {
+    background: rgba(244, 63, 94, 0.1);
+    color: #fb7185;
+    border: 1px solid rgba(244, 63, 94, 0.25);
+}
+
+.blue-team .team-badge {
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.team-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.8rem;
+    color: #fff;
+}
+
+.team-card p {
+    color: var(--text-secondary);
+    margin-bottom: 1.3rem;
+    font-size: 0.94rem;
+}
+
+.cyber-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.cyber-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+}
+
+.red-team .cyber-list li i { color: #fb7185; }
+.blue-team .cyber-list li i { color: #38bdf8; }
+
+/* Golden Rules Box */
+.rules-container {
+    padding: 2.2rem;
+    border-radius: var(--radius-lg);
+    background: rgba(11, 16, 26, 0.7);
+}
+
+.rules-title {
+    font-size: 1.35rem;
+    margin-bottom: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.3rem;
+}
+
+.rule-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 1.3rem;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+
+.rule-item:hover {
+    border-color: rgba(34, 211, 238, 0.3);
+    background: rgba(34, 211, 238, 0.03);
+}
+
+.rule-num {
+    font-family: var(--font-code);
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: rgba(56, 189, 248, 0.5);
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.rule-item h4 {
+    font-size: 1.05rem;
+    color: #fff;
+    margin-bottom: 0.4rem;
+}
+
+.rule-item p {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+}
+
+/* Articles Section & Year Filter */
+.year-filter-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.1rem;
+    margin-bottom: 2.2rem;
+}
+
+.year-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.35rem;
+    border-radius: var(--radius-full);
+}
+
+.filter-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.45rem 1.1rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-main);
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-btn:hover {
+    color: #fff;
+}
+
+.filter-btn.active {
+    background: #0284c7;
+    color: #ffffff;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.45rem 1.1rem;
+    border-radius: var(--radius-full);
+    min-width: 270px;
+}
+
+.search-box i {
+    color: var(--cyber-cyan);
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: var(--font-main);
+    font-size: 0.88rem;
+    width: 100%;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Articles Grid */
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 1.6rem;
+}
+
+.article-card {
+    border-radius: var(--radius-lg);
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.article-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.article-year {
+    font-family: var(--font-code);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    background: rgba(34, 211, 238, 0.08);
+    color: var(--cyber-cyan);
+    border: 1px solid rgba(34, 211, 238, 0.18);
+}
+
+.article-category {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.article-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    line-height: 1.45;
+}
+
+.article-card p {
+    color: var(--text-secondary);
+    font-size: 0.91rem;
+    margin-bottom: 1.3rem;
+    flex-grow: 1;
+}
+
+.article-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 0.9rem;
+    font-size: 0.84rem;
+    color: var(--cyber-cyan);
+    font-weight: 700;
+}
+
+.read-more-link {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* Interactive Terminal Section */
+.interactive-terminal {
+    background: #05080e;
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+}
+
+.terminal-bar {
+    background: #090f1a;
+    padding: 0.75rem 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.terminal-title {
+    font-family: var(--font-code);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    direction: ltr;
+}
+
+.terminal-status {
+    font-size: 0.78rem;
+    color: var(--cyber-emerald);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.pulse-green {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyber-emerald);
+}
+
+.terminal-content {
+    min-height: 200px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding: 1.4rem;
+    font-family: var(--font-code);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    direction: ltr;
+    text-align: left;
+}
+
+.term-line {
+    margin-bottom: 0.55rem;
+    color: #e2e8f0;
+}
+
+.term-user-cmd {
+    color: var(--cyber-cyan);
+    font-weight: bold;
+}
+
+.term-output-success {
+    color: #34d399;
+}
+
+.term-output-info {
+    color: #38bdf8;
+}
+
+.term-output-warning {
+    color: #f59e0b;
+}
+
+.term-output-error {
+    color: #f43f5e;
+}
+
+.terminal-input-row {
+    background: #070c16;
+    padding: 0.75rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    direction: ltr;
+}
+
+.prompt-symbol {
+    font-family: var(--font-code);
+    color: var(--cyber-cyan);
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+#terminalInput {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-family: var(--font-code);
+    font-size: 0.92rem;
+    width: 100%;
+}
+
+.quick-commands {
+    padding: 0.7rem 1.4rem;
+    background: rgba(9, 15, 26, 0.4);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+.cmd-chip {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    color: var(--cyber-cyan);
+    font-family: var(--font-code);
+    padding: 0.22rem 0.65rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.cmd-chip:hover {
+    background: rgba(34, 211, 238, 0.1);
+    border-color: var(--cyber-cyan);
+    color: #fff;
+}
+
+/* Article Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(4, 7, 12, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    max-width: 820px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 2.2rem;
+    border-radius: var(--radius-lg);
+    position: relative;
+    background: #090e18;
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    transform: scale(0.97);
+    transition: var(--transition);
+}
+
+.modal-overlay.open .modal-content {
+    transform: scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    background: #ef4444;
+    color: #fff;
+}
+
+.modal-header {
+    margin-bottom: 1.6rem;
+}
+
+.modal-year-tag {
+    display: inline-block;
+    font-family: var(--font-code);
+    font-size: 0.85rem;
+    padding: 0.25rem 0.8rem;
+    border-radius: var(--radius-full);
+    background: rgba(34, 211, 238, 0.08);
+    color: var(--cyber-cyan);
+    margin-bottom: 0.7rem;
+    font-weight: 700;
+}
+
+.modal-header h2 {
+    font-size: 1.65rem;
+    line-height: 1.4;
+    margin-bottom: 0.7rem;
+    color: #fff;
+}
+
+.modal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.3rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.modal-body {
+    line-height: 1.85;
+    color: #cbd5e1;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.modal-body h4 {
+    color: var(--cyber-cyan);
+    font-size: 1.15rem;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.modal-body ul {
+    margin: 0.8rem 1.4rem;
+}
+
+.modal-body li {
+    margin-bottom: 0.4rem;
+}
+
+.modal-body .incident-box {
+    margin: 1.2rem 0;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-right: 3px solid var(--cyber-blue);
+    border-radius: var(--radius-sm);
+    color: #e2e8f0;
+}
+
+.modal-body .takeaway-box {
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    background: rgba(16, 185, 129, 0.06);
+    border-right: 3px solid var(--cyber-emerald);
+    border-radius: var(--radius-sm);
+    color: #e2e8f0;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Footer */
+.glass-footer {
+    margin-top: 4rem;
+    padding: 3.5rem 2rem 2rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.1);
+    background: #04070c;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.3fr 1.2fr;
+    gap: 2.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.footer-brand p {
+    color: var(--text-secondary);
+    margin-top: 0.9rem;
+    font-size: 0.88rem;
+    max-width: 360px;
+}
+
+.compliance-badge {
+    margin-top: 1rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius-sm);
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    color: var(--cyber-emerald);
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-links h4,
+.footer-policies h4,
+.footer-tip h4 {
+    font-size: 1.05rem;
+    margin-bottom: 1.1rem;
+    color: #fff;
+}
+
+.footer-links,
+.footer-policies {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.footer-links a,
+.footer-policies a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: var(--transition);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.footer-links a:hover,
+.footer-policies a:hover {
+    color: var(--cyber-cyan);
+    padding-right: 3px;
+}
+
+.quote-text {
+    font-style: italic;
+    color: #cbd5e1;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0.9rem 1.1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    font-size: 0.88rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1.8rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 2.3rem;
+    }
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #090e18;
+        border-bottom: 1px solid var(--glass-border);
+        flex-direction: column;
+        padding: 1.3rem;
+        gap: 0.9rem;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .mobile-toggle {
+        display: block;
+    }
+
+    .hero-title {
+        font-size: 1.9rem;
+    }
+
+    .section {
+        padding: 3.5rem 1.2rem;
+    }
+
+    .hero-section {
+        padding: 7rem 1.2rem 3.5rem;
+    }
+
+    .year-filter-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .cursor-dot, .cursor-glow {
+        display: none !important;
+    }
+}
+
+
+/* ==========================================================================
+   إضافات: سواليف البيت، خرافات شائعة، ومحاكي الفخاخ التفاعلي
+   ========================================================================== */
+
+/* Analogy Badge */
+.analogy-badge {
+    margin-top: 1.2rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: var(--radius-sm);
+    background: rgba(34, 211, 238, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    color: var(--cyber-cyan);
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Myths Section Grid */
+.myths-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.6rem;
+}
+
+.myth-card {
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.myth-header {
+    border-bottom: 1px dashed rgba(244, 63, 94, 0.3);
+    padding-bottom: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.myth-label {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #f43f5e;
+    background: rgba(244, 63, 94, 0.1);
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 0.6rem;
+}
+
+.myth-header h4 {
+    font-size: 1.15rem;
+    color: #f8fafc;
+    line-height: 1.4;
+}
+
+.myth-truth {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-md);
+    padding: 1.2rem;
+}
+
+.truth-label {
+    display: block;
+    color: var(--cyber-emerald);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+}
+
+.myth-truth p {
+    color: #cbd5e1;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Simulator Section Styles */
+.simulator-wrapper {
+    padding: 2.2rem;
+    border-radius: var(--radius-lg);
+    background: #090e18;
+}
+
+.sim-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+    padding-bottom: 1rem;
+}
+
+.sim-tab-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    color: var(--text-secondary);
+    padding: 0.55rem 1.2rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-main);
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sim-tab-btn:hover {
+    color: #fff;
+    border-color: var(--cyber-cyan);
+}
+
+.sim-tab-btn.active {
+    background: #0284c7;
+    color: #fff;
+    border-color: #38bdf8;
+}
+
+.sim-body {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+/* Phone Frame Mockup */
+.phone-frame {
+    width: 100%;
+    max-width: 330px;
+    margin: 0 auto;
+    background: #020617;
+    border: 3px solid rgba(148, 163, 184, 0.25);
+    border-radius: 36px;
+    padding: 1.2rem 0.9rem 1.8rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+
+.phone-notch {
+    width: 90px;
+    height: 14px;
+    background: #0f172a;
+    border-radius: var(--radius-full);
+    margin: 0 auto 1.2rem;
+}
+
+.phone-screen {
+    background: #0b1120;
+    border-radius: 24px;
+    padding: 1rem;
+    min-height: 290px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.2rem;
+}
+
+.sender-avatar {
+    width: 36px;
+    height: 36px;
+    background: rgba(34, 211, 238, 0.1);
+    color: var(--cyber-cyan);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.sender-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.sender-name {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.sender-status {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.chat-message-bubble {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px 14px 2px 14px;
+    padding: 1.1rem;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.chat-message-bubble a {
+    color: #38bdf8;
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+/* Simulator Controls & Feedback */
+.sim-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.sim-question {
+    font-size: 1.3rem;
+    color: #fff;
+}
+
+.sim-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.sim-btn {
+    flex: 1;
+    min-width: 220px;
+    padding: 0.9rem 1.4rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: var(--transition);
+}
+
+.safe-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    color: #cbd5e1;
+}
+
+.safe-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.trap-btn {
+    background: rgba(244, 63, 94, 0.1);
+    border: 1px solid rgba(244, 63, 94, 0.3);
+    color: #fb7185;
+}
+
+.trap-btn:hover {
+    background: #e11d48;
+    color: #fff;
+}
+
+/* Feedback Box */
+.sim-feedback-box {
+    border-radius: var(--radius-md);
+    padding: 1.6rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.sim-feedback-box.correct {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.sim-feedback-box.wrong {
+    background: rgba(244, 63, 94, 0.08);
+    border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.feedback-badge {
+    display: inline-block;
+    padding: 0.25rem 0.8rem;
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-weight: 800;
+    margin-bottom: 0.7rem;
+}
+
+.correct .feedback-badge {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--cyber-emerald);
+}
+
+.wrong .feedback-badge {
+    background: rgba(244, 63, 94, 0.2);
+    color: #fb7185;
+}
+
+.sim-feedback-box h4 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 0.6rem;
+}
+
+.sim-feedback-box p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.feedback-clues {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.feedback-clues li {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.feedback-clues li i {
+    color: var(--cyber-cyan);
+}
+
+@media (max-width: 768px) {
+    .sim-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ==========================================================================
+   إضافات: قسم كواليس وثائقيات اليوتيوب (تشريح العمليات الكبرى)
+   ========================================================================== */
+
+.yt-channels-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 1.6rem;
+    margin-bottom: 2.5rem;
+    background: rgba(14, 21, 33, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.bar-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.channel-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.ch-tag {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    color: #fca5a5;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.ch-tag i {
+    color: #ef4444;
+}
+
+.operations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.op-card {
+    padding: 2.2rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+}
+
+.op-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.op-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 700;
+    background: rgba(34, 211, 238, 0.08);
+    color: var(--cyber-cyan);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+}
+
+.op-year {
+    font-family: var(--font-code);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+.op-card h3 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 0.8rem;
+    line-height: 1.45;
+}
+
+.op-summary {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.op-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.step-item {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.9rem 1rem;
+    border-radius: var(--radius-md);
+}
+
+.step-item.highlight-step {
+    background: rgba(244, 63, 94, 0.06);
+    border-color: rgba(244, 63, 94, 0.25);
+}
+
+.step-item strong {
+    display: block;
+    color: #fff;
+    font-size: 0.92rem;
+    margin-bottom: 0.25rem;
+}
+
+.step-item p {
+    color: #94a3b8;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(56, 189, 248, 0.15);
+    color: var(--cyber-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.highlight-step .step-num {
+    background: rgba(244, 63, 94, 0.2);
+    color: #fb7185;
+}
+
+.op-lesson {
+    margin-top: auto;
+    padding: 1rem;
+    background: rgba(16, 185, 129, 0.06);
+    border-right: 3px solid var(--cyber-emerald);
+    border-radius: var(--radius-sm);
+    color: #cbd5e1;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+}
+
+.op-lesson i {
+    color: var(--cyber-emerald);
+    font-size: 1.1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+
+/* Ghost Hacker Badge & Featured Operation */
+.ghost-badge {
+    background: rgba(168, 85, 247, 0.12) !important;
+    border-color: rgba(168, 85, 247, 0.35) !important;
+    color: #c084fc !important;
+}
+
+.featured-op {
+    border-color: rgba(168, 85, 247, 0.22);
+}
+
+.featured-op:hover {
+    border-color: rgba(168, 85, 247, 0.45);
+}
+
+
+/* ==========================================================================
+   إضافات: توافق Google AdSense والكوكيز والصفحات القانونية
+   ========================================================================== */
+
+/* AdSense Banner Placeholder */
+.ad-banner-section {
+    max-width: 1280px;
+    margin: 0 auto 3rem;
+    padding: 0 2rem;
+}
+
+.ad-wrapper {
+    background: rgba(10, 16, 28, 0.65);
+    border: 1px dashed rgba(148, 163, 184, 0.25);
+    padding: 1.2rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: var(--radius-md);
+}
+
+.ad-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.ad-placeholder {
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-family: var(--font-code);
+}
+
+/* Cookie Consent Banner */
+.cookie-banner {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(9, 14, 25, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    padding: 1.2rem 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    z-index: 9990;
+    animation: slideUp 0.4s ease;
+    transition: var(--transition);
+}
+
+.cookie-banner.hidden {
+    display: none !important;
+}
+
+.cookie-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cookie-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--cyber-cyan);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.cookie-content p {
+    color: #cbd5e1;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.cookie-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+}
+
+.cookie-accept-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.88rem;
+}
+
+.cookie-link-btn {
+    background: transparent;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    color: var(--text-secondary);
+    padding: 0.6rem 1.1rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.cookie-link-btn:hover {
+    color: #fff;
+    border-color: var(--cyber-cyan);
+}
+
+/* Policy Content Formatting */
+.policy-section-block {
+    margin-bottom: 1.8rem;
+}
+
+.policy-section-block h3 {
+    color: var(--cyber-cyan);
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.policy-section-block p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 0.6rem;
+}
+
+.policy-section-block ul {
+    margin: 0.6rem 1.4rem;
+    color: #94a3b8;
+    font-size: 0.92rem;
+}
+
+.policy-section-block li {
+    margin-bottom: 0.4rem;
+}
+
+/* Contact Form inside Modal */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    color: #fff;
+    font-family: var(--font-main);
+    font-size: 0.92rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--cyber-cyan);
+    background: rgba(34, 211, 238, 0.04);
+}
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 992px) {
+    .cookie-banner {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+    }
+    .cookie-content {
+        flex-direction: column;
+    }
+    .cookie-actions {
+        justify-content: center;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Mouse Tracking Elements -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Background Canvas for Interactive Cyber Grid -->
+    <canvas id="cyberCanvas"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="glass-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div class="logo-text">
+                    <span class="logo-title">سايبر<span class="neon-text">زون</span></span>
+                    <span class="logo-badge">عالم الكود & الحماية للبسطاء</span>
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <a href="#hero" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a>
+                <a href="#analogies"><i class="fa-solid fa-mug-hot"></i> سواليف البيت</a>
+                <a href="#programming"><i class="fa-solid fa-code"></i> وش البرمجة؟</a>
+                <a href="#cybersecurity"><i class="fa-solid fa-user-ninja"></i> الأمن السيبراني</a>
+                <a href="#myths"><i class="fa-solid fa-triangle-exclamation"></i> خرافات شائعة</a>
+                <a href="#phishing-sim"><i class="fa-solid fa-mobile-screen"></i> محاكي الفخاخ</a>
+                <a href="#yt-breakdowns"><i class="fa-brands fa-youtube"></i> كواليس الوثائقيات</a>
+                <a href="#articles"><i class="fa-solid fa-newspaper"></i> مقالات 2022-2026</a>
+                <a href="#terminal"><i class="fa-solid fa-terminal"></i> التيرمنال</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#phishing-sim" class="cyber-btn primary-btn">
+                    <span>جرب محاكي الفخاخ</span>
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="القائمة">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-badge glass-pill">
+                <span class="pulse-dot"></span>
+                <span>لو ما تفهم أي شيء بالتقنية؟ أنت في المكان الصح 100% 🚀</span>
+            </div>
+
+            <h1 class="hero-title">
+                تعلم <span class="gradient-text">البرمجة</span> واحمِ نفسك في <br>
+                عالم <span class="neon-text">الأمن السيبراني</span> بدون أي تعقيد!
+            </h1>
+
+            <p class="hero-desc">
+                ما يحتاج تكون عبقري رياضيات ولا خبير كمبيوتر! هنا بنشرح لك كل شيء بأبسط تشبيهات من حياتنا اليومية، مع أحداث واقعية وتجارب تفاعلية تكشف لك كيف تحمي جهازك.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#analogies" class="cyber-btn primary-btn">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    <span>التقنية بسواليف البيت</span>
+                </a>
+                <a href="#phishing-sim" class="cyber-btn secondary-btn glass-btn">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                    <span>اختبر كشف الفخاخ</span>
+                </a>
+                <a href="#myths" class="cyber-btn timeline-btn">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>خرافات انتبه تصدقها</span>
+                </a>
+            </div>
+
+            <!-- Quick Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card glass-card spotlight-card">
+                    <div class="stat-icon"><i class="fa-solid fa-shield-cat"></i></div>
+                    <div class="stat-info">
+                        <h3>صفر تعقيد</h3>
+                        <p>شرح موجه للي ما يفهم أي شيء بالتقنية</p>
+                    </div>
+                </div>
+                <div class="stat-card glass-card spotlight-card">
+                    <div class="stat-icon"><i class="fa-solid fa-newspaper"></i></div>
+                    <div class="stat-info">
+                        <h3>2022 - 2026</h3>
+                        <p>أهم الأحداث والتحليلات السيبرانية الواقعية</p>
+                    </div>
+                </div>
+                <div class="stat-card glass-card spotlight-card">
+                    <div class="stat-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    <div class="stat-info">
+                        <h3>محاكاة تفاعلية</h3>
+                        <p>جرب تكشف رسائل الاحتيال بنفسك</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AdSense Responsive Ad Unit (Top) -->
+    <div class="ad-banner-section">
+        <div class="ad-wrapper glass-pill">
+            <span class="ad-badge"><i class="fa-solid fa-rectangle-ad"></i> إعلان ممول - Sponsored</span>
+            <div class="ad-placeholder">
+                <span>مساحة إعلانية مجهزة بنظام Google AdSense المتجاوب (Responsive Display Unit)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW SECTION 1: تشبيهات من واقعنا: التقنية بسواليف البيت والمجلس -->
+    <section id="analogies" class="section">
+        <div class="section-header">
+            <span class="sub-title"><i class="fa-solid fa-mug-hot"></i> من الصفر التام</span>
+            <h2 class="title">التقنية بسواليف البيت والمجلس</h2>
+            <p class="description">
+                المصطلحات الكبيرة اللي تسمعها وتحسها طلاسم.. تعال نفككها بتشبيهات بسيطة من حياتنا اليومية!
+            </p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="glass-card spotlight-card info-card">
+                <div class="card-icon"><i class="fa-solid fa-kitchen-set"></i></div>
+                <h3>1. وش يعني "برمجة" أصلاً؟</h3>
+                <p>
+                    تخيل الكمبيوتر مثل <strong>طباخ آلي غبي</strong> ما يفهم من نفسه! لو قلت له: "سو لي كبسة"، بيقعد يطالع فيك ويسكت! البرمجة هي إنك تكتب له ورقة مقادير بالخطوات: (1- اغسل الرز، 2- ولع النار، 3- حط ملعقة ملح). هذا هو الكود ببساطة!
+                </p>
+                <div class="analogy-badge"><i class="fa-solid fa-check"></i> التشبيه: وصفة طبخ بالترتيب</div>
+            </div>
+
+            <div class="glass-card spotlight-card info-card">
+                <div class="card-icon"><i class="fa-solid fa-key"></i></div>
+                <h3>2. التحقق بخطوتين (2FA) وليه مهم؟</h3>
+                <p>
+                    الباسوورد العادي هو <strong>مفتاح باب بيتك</strong>؛ لو انسرق المفتاح الحرامي يدخل على طول. لكن "التحقق بخطوتين" هو <strong>المزلاج الداخلي من ورا الباب</strong>؛ حتى لو الحرامي معاه المفتاح، ما يقدر يدخل إلا لما أنت تفتح له المزلاج من جوالك!
+                </p>
+                <div class="analogy-badge"><i class="fa-solid fa-check"></i> التشبيه: قفل المفتاح + مزلاج الأمان</div>
+            </div>
+
+            <div class="glass-card spotlight-card info-card">
+                <div class="card-icon"><i class="fa-solid fa-user-shield"></i></div>
+                <h3>3. جدار الحماية (Firewall) وش يسوي؟</h3>
+                <p>
+                    اعتبره <strong>حارس أمن البوابة الخارجية</strong>. واقف على مدخل جهازك، وأي ملف أو موقع يحاول يدخل يسأله: "أنت مين؟ ومين سمح لك تجي؟". لو شاف شخص مشبوه أو ما معه تصريح رسمي، يقفل الباب بوجهه ويطرده برا فوراً!
+                </p>
+                <div class="analogy-badge"><i class="fa-solid fa-check"></i> التشبيه: حارس البوابة الحريص</div>
+            </div>
+
+            <div class="glass-card spotlight-card info-card">
+                <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <h3>4. من هو "الهكر الأخلاقي"؟</h3>
+                <p>
+                    مثل <strong>فني أقفال أمين تجيبه لبيتك</strong> وتقوله: "تكفى افحص لي البيت وشف وين الشبابيك اللي ممكن الحرامي ينط منها؟". يلف بالبيت، ويقولك: "شباك المطبخ قفله مكسور، صلحه قبل لا يجي حرامي حقيقي ويدخل منه!".
+                </p>
+                <div class="analogy-badge"><i class="fa-solid fa-check"></i> التشبيه: فاحص أقفال البيت</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programming Section -->
+    <section id="programming" class="section">
+        <div class="section-header">
+            <span class="sub-title"><i class="fa-solid fa-code"></i> الكود ببساطة</span>
+            <h2 class="title">الواجهة ولا المطبخ؟ كيف يشتغل الموقع؟</h2>
+            <p class="description">
+                أي تطبيق أو موقع تشوفه بجوالك مقسوم لقسمين فقط، ولا تشيل هم التفاصيل المعقدة!
+            </p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="glass-card spotlight-card info-card">
+                <div class="card-icon"><i class="fa-solid fa-palette"></i></div>
+                <h3>الفرونت إند (واجهة المحل)</h3>
+                <p>
+                    الديكور، الإضاءة، الطاولات، والأزرار اللي تشوفها بعينك وتلمسها بإصبعك. في المواقع هذا شغل لغات مثل HTML و CSS و JavaScript.
+                </p>
+                <div class="tags">
+                    <span>الألوان والأزرار</span>
+                    <span>الواجهة</span>
+                </div>
+            </div>
+
+            <div class="glass-card spotlight-card info-card">
+                <div class="card-icon"><i class="fa-solid fa-server"></i></div>
+                <h3>الباك إند (المطبخ والمخزن)</h3>
+                <p>
+                    المطبخ اللي ورا؛ المكان اللي تتجهز فيه الطلبات، السيرفرات اللي تحفظ بياناتك، والتأكد من صحة باسووردك قبل ما تفتح لك الشاشة.
+                </p>
+                <div class="tags">
+                    <span>السيرفر</span>
+                    <span>قواعد البيانات</span>
+                </div>
+            </div>
+
+            <div class="glass-card spotlight-card info-card">
+                <div class="card-icon"><i class="fa-brands fa-python"></i></div>
+                <h3>بايثون: لغة السواليف السهلة</h3>
+                <p>
+                    لو ودك تتعلم برمجة، ابدأ ببايثون (Python). أوامرها واضحة وكأنك تكتب إنجليزي عادي، وتستخدم في كل شيء من الذكاء الاصطناعي لين أدوات الحماية.
+                </p>
+                <div class="tags">
+                    <span>سهلة للمبتدئ</span>
+                    <span>ذكاء اصطناعي</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Snippet Box -->
+        <div class="code-preview-box glass-card spotlight-card">
+            <div class="code-header">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="code-title"><i class="fa-solid fa-terminal"></i> مثال سريع بالبايثون: كيف يفحص الكمبيوتر قوة الباسوورد؟</div>
+                <span class="code-lang">Python 3</span>
+            </div>
+            <pre class="code-body"><code><span class="comment"># كود بسيط يفحص قوة كلمة المرور بالعامية</span>
+<span class="keyword">def</span> <span class="function">check_password</span>(pass_text):
+    <span class="keyword">if</span> len(pass_text) &lt; <span class="number">8</span>:
+        <span class="keyword">return</span> <span class="string">"❌ باسووردك قصير جداً! خله فوق 8 خانات"</span>
+    <span class="keyword">elif</span> pass_text <span class="keyword">in</span> [<span class="string">"123456"</span>, <span class="string">"password"</span>, <span class="string">"admin"</span>]:
+        <span class="keyword">return</span> <span class="string">"⚠️ هذا أشهر باسوورد بالعالم! الهكر بيفكه برمشة عين!"</span>
+    <span class="keyword">else</span>:
+        <span class="keyword">return</span> <span class="string">"🛡️ بطل! كذا حسابك بأمان ومحد يقدر يخمنه بسهولة"</span>
+
+<span class="function">print</span>(check_password(<span class="string">"123456"</span>))</code></pre>
+        </div>
+    </section>
+
+    <!-- Cybersecurity Section -->
+    <section id="cybersecurity" class="section">
+        <div class="section-header">
+            <span class="sub-title"><i class="fa-solid fa-shield-halved"></i> الجدار الناري</span>
+            <h2 class="title">الأمن السيبراني: الفريق الأحمر vs الفريق الأزرق</h2>
+            <p class="description">
+                عالم الحماية مثل لعبة كورة: فريق يهاجم عشان يختبر الدفاع، وفريق يدافع ويحمي المرمى!
+            </p>
+        </div>
+
+        <div class="roles-grid">
+            <div class="glass-card spotlight-card team-card red-team">
+                <div class="team-badge"><i class="fa-solid fa-skull"></i> الفريق الأحمر (Red Team)</div>
+                <h3>المهاجمين (المختبرين)</h3>
+                <p>
+                    يحاولون يدورون على أبواب خلفية، ثغرات في الأنظمة، أو يرسلون رسائل تصيد للموظفين عشان يكتشفون الضعف قبل ما يستغله هكر شرير.
+                </p>
+                <ul class="cyber-list">
+                    <li><i class="fa-solid fa-check"></i> محاكاة هجمات الهكرز</li>
+                    <li><i class="fa-solid fa-check"></i> اختبار اختراق المواقع والتطبيقات</li>
+                    <li><i class="fa-solid fa-check"></i> كشف الثغرات ونقاط الضعف</li>
+                </ul>
+            </div>
+
+            <div class="glass-card spotlight-card team-card blue-team">
+                <div class="team-badge"><i class="fa-solid fa-shield"></i> الفريق الأزرق (Blue Team)</div>
+                <h3>المدافعين وحراس السيرفرات</h3>
+                <p>
+                    يراقبون حركة الشبكة 24 ساعة، يحللون أي تصرف مشبوه، يسوون نسخ احتياطي، ويسكرون الثغرات لو صار أي خطر.
+                </p>
+                <ul class="cyber-list">
+                    <li><i class="fa-solid fa-check"></i> مراقبة السيرفرات وحركة البيانات</li>
+                    <li><i class="fa-solid fa-check"></i> عزل الأجهزة المصابة وحصر الأضرار</li>
+                    <li><i class="fa-solid fa-check"></i> التشفير والنسخ الاحتياطي المستمر</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION 2: خرافات كنا نحسبها صح وطلعت مقلب! -->
+    <section id="myths" class="section">
+        <div class="section-header">
+            <span class="sub-title"><i class="fa-solid fa-triangle-exclamation"></i> صحح معلوماتك</span>
+            <h2 class="title">خرافات شائعة كنا نحسبها صح وطلعت مقلب!</h2>
+            <p class="description">
+                أغلب الناس يقعون في الفخ بسبب معتقدات قديمة وغير صحيحة.. تعال ننسفها سوا:
+            </p>
+        </div>
+
+        <div class="myths-grid">
+            <div class="glass-card spotlight-card myth-card">
+                <div class="myth-header">
+                    <span class="myth-label">❌ خرافة منتشرة</span>
+                    <h4>"أنا إنسان عادي وما عندي ملايين، ليش الهكر بيهتم يخترقني؟"</h4>
+                </div>
+                <div class="myth-truth">
+                    <span class="truth-label">💡 الحقيقة بالعامية:</span>
+                    <p>
+                        الهكر ما يبي فلوسك أنت بالضرورة! هو يبي جوالك أو كمبيوترك عشان يخليه <strong>"جهاز زومبي"</strong> يهاجم فيه بنوك ومواقع حكومية باسمك وأنت نايم في بيتك وما تدري! أو يسرق هويتك وصورك عشان ينصب فيها على ناس ثانين.
+                    </p>
+                </div>
+            </div>
+
+            <div class="glass-card spotlight-card myth-card">
+                <div class="myth-header">
+                    <span class="myth-label">❌ خرافة منتشرة</span>
+                    <h4>"لو شغلت التصفح الخفي بالمتصفح، خلاص محد يقدر يشوفني!"</h4>
+                </div>
+                <div class="myth-truth">
+                    <span class="truth-label">💡 الحقيقة بالعامية:</span>
+                    <p>
+                        التصفح الخفي (Incognito) وظيفته الوحيدة إنه <strong>ما يحفظ سجل الروابط في جهازك أنت بس</strong>! لكن شركة الاتصالات، وصاحب الموقع اللي زرته، وشبكة الواي فاي اللي أنت شابك عليها، كلهم شايفينك وشغالين تسجيل لبياناتك بكل وضوح!
+                    </p>
+                </div>
+            </div>
+
+            <div class="glass-card spotlight-card myth-card">
+                <div class="myth-header">
+                    <span class="myth-label">❌ خرافة منتشرة</span>
+                    <h4>"أجهزة أبل ما تخترق ومستحيل يجيها أي فايروس!"</h4>
+                </div>
+                <div class="myth-truth">
+                    <span class="truth-label">💡 الحقيقة بالعامية:</span>
+                    <p>
+                        نظام أبل قوي، لكن ما فيه جهاز بالعالم معصوم! إذا جاك رابط وهمي وكتبت فيه باسوورد إيميلك أو حساب بنكك بنفسك، أبل ولا أكبر شركة حماية تقدر تنقذك؛ لأنك أنت اللي فتحت الباب وعطيت المفتاح للهكر بإيدك.
+                    </p>
+                </div>
+            </div>
+
+            <div class="glass-card spotlight-card myth-card">
+                <div class="myth-header">
+                    <span class="myth-label">❌ خرافة منتشرة</span>
+                    <h4>"الباسوورد الصعب لازم يكون رموز عشوائية زي: #X@9!2"</h4>
+                </div>
+                <div class="myth-truth">
+                    <span class="truth-label">💡 الحقيقة بالعامية:</span>
+                    <p>
+                        الرموز العشوائية القصيرة يسهل على كمبيوترات الهكر تخمينها، وفوق كذا أنت تنساها بسرعة! الحل الأقوى هو <strong>"جملة المرور الطويلة"</strong>: مثلاً <code>قهوة_الصباح_باردة_2026</code>.. سهلة جداً عليك في الحفظ، ومستحيل على أي كمبيوتر يخمنها!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION 3: محاكي فخاخ الواتساب ورسايل SMS -->
+    <section id="phishing-sim" class="section">
+        <div class="section-header">
+            <span class="sub-title"><i class="fa-solid fa-gamepad"></i> لعبة تفاعلية سريعة</span>
+            <h2 class="title">محاكي كشف الفخاخ: هل بتقدر تصيد النصاب؟</h2>
+            <p class="description">
+                اختر رسالة من الرسائل اللي تجينا كل يوم، وقرر: هل تفتحها وتتعامل معها، ولا فخ واحتيال لازم تحذفه فوراً؟
+            </p>
+        </div>
+
+        <div class="simulator-wrapper glass-card spotlight-card">
+            <!-- Selector Tabs -->
+            <div class="sim-tabs">
+                <button class="sim-tab-btn active" data-scenario="0"><i class="fa-solid fa-box"></i> 1. رسالة الشحنة المعلقة</button>
+                <button class="sim-tab-btn" data-scenario="1"><i class="fa-brands fa-whatsapp"></i> 2. رسالة طلب الرمز بالواتساب</button>
+                <button class="sim-tab-btn" data-scenario="2"><i class="fa-solid fa-building-columns"></i> 3. رسالة إيقاف بطاقة البنك</button>
+            </div>
+
+            <div class="sim-body">
+                <!-- Phone Frame Simulation -->
+                <div class="phone-frame">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="chat-header">
+                            <div class="sender-avatar" id="simAvatar"><i class="fa-solid fa-truck"></i></div>
+                            <div class="sender-info">
+                                <span class="sender-name" id="simSender">SMSA-Express</span>
+                                <span class="sender-status" id="simStatus">رسالة نصية SMS</span>
+                            </div>
+                        </div>
+
+                        <div class="chat-message-bubble" id="simMessage">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Controls & Feedback -->
+                <div class="sim-controls">
+                    <h3 class="sim-question">لو وصلتك هالرسالة على جوالك، وش قرارك؟</h3>
+                    <div class="sim-buttons">
+                        <button class="sim-btn safe-btn" id="btnSafe">
+                            <i class="fa-solid fa-check"></i>
+                            <span>رسالة رسمية وأفتحها عادي</span>
+                        </button>
+                        <button class="sim-btn trap-btn" id="btnTrap">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>فخ واحتيال واحذفها فوراً!</span>
+                        </button>
+                    </div>
+
+                    <!-- Feedback Box (Hidden initially) -->
+                    <div class="sim-feedback-box" id="simFeedback" style="display: none;">
+                        <div class="feedback-badge" id="feedbackBadge">نتيجة تقييمك</div>
+                        <h4 id="feedbackTitle">عنوان النتيجة</h4>
+                        <p id="feedbackDesc">التفاصيل والشرح</p>
+                        <div class="feedback-clues" id="feedbackClues">
+                            <!-- Clues injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: كواليس وثائقيات السايبر (تشريح العمليات الكبرى) -->
+    <section id="yt-breakdowns" class="section">
+        <div class="section-header">
+            <span class="sub-title"><i class="fa-brands fa-youtube" style="color: #ef4444;"></i> مستوحى من قنوات مثل "في وار" و "Darknet Diaries"</span>
+            <h2 class="title">تشريح أشهر عمليات السايبر: كيف اخترقوا بالضبط؟</h2>
+            <p class="description">
+                تشوف الفيديوهات الوثائقية وتنبهر بس ما تدري وش صار من ورا الكواليس؟ هنا نفكك لك أشهر العمليات العالمية خطوة بخطوة بالعامية بدون أي تعقيد.
+            </p>
+        </div>
+
+        <!-- Featured Channels Bar -->
+        <div class="yt-channels-bar glass-pill">
+            <span class="bar-title"><i class="fa-solid fa-tv"></i> قنوات ينصح بمتابعتها للوثائقيات:</span>
+            <div class="channel-tags">
+                <span class="ch-tag"><i class="fa-brands fa-youtube"></i> في وار (Fi War)</span>
+                <span class="ch-tag"><i class="fa-brands fa-youtube"></i> عمر دياز (Diaz)</span>
+                <span class="ch-tag"><i class="fa-solid fa-podcast"></i> Darknet Diaries</span>
+                <span class="ch-tag"><i class="fa-brands fa-youtube"></i> NetworkChuck</span>
+            </div>
+        </div>
+
+        <div class="operations-grid">
+            <!-- Featured: الهكر الشبح (مستوحى من قناة في وار) -->
+            <div class="glass-card spotlight-card op-card featured-op">
+                <div class="op-header">
+                    <span class="op-badge ghost-badge"><i class="fa-solid fa-ghost"></i> تحليل خاص: في وار (VWAR)</span>
+                    <span class="op-year">الهكر الشبح</span>
+                </div>
+                <h3>الهكر الشبح: كيف تورط طالب في اختراق يهدد أمن الدولة؟</h3>
+                <p class="op-summary">
+                    الواقعة الشهيرة في وثائقيات قناة "في وار"؛ طالب جامعي يجد نفسه متهماً باختراق جهات حساسة لأن الـ IP حقه هو مصدر الهجوم، بينما المخترق الحقيقي "الشبح" يتحكم بجهازه عن بُعد في الظلام!
+                </p>
+                <div class="op-steps">
+                    <div class="step-item">
+                        <span class="step-num">1</span>
+                        <div>
+                            <strong>السيطرة الخفية على جهاز الضحية (Zombie PC):</strong>
+                            <p>الشبح زرع برمجية تحكم عن بُعد خفية (RAT) في كمبيوتر الطالب، وصار يشن هجماته الخطيرة من خلال جهاز الطالب أثناء نومه ليظهر عنوان الضحية في كل سجلات السيرفرات!</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">2</span>
+                        <div>
+                            <strong>زرع الأدلة المزيفة (Digital False Flags):</strong>
+                            <p>تعمد الشبح ترك أكواد خبيثة على سطح مكتب الطالب وتلاعب بأوقات إنشاء الملفات (Timestomping) ليوهم المحققين بأن الطالب هو الفاعل المباشر.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">3</span>
+                        <div>
+                            <strong>مسح الآثار وتضليل الرقابة (Anti-Forensics):</strong>
+                            <p>مسح سجلات الاتصال الخاصة بعنوانه الحقيقي (Event Logs) ولم يترك في مسرح الجريمة الرقمي إلا بصمات جهاز الطالب فقط.</p>
+                        </div>
+                    </div>
+                    <div class="step-item highlight-step">
+                        <span class="step-num"><i class="fa-solid fa-microscope"></i></span>
+                        <div>
+                            <strong>كيف انكشف الشبح وبانت البراءة؟ (Digital Forensics):</strong>
+                            <p>المحققون سحبوا نسخة من الذاكرة العشوائية الحية (RAM) واكتشفوا بقايا اتصال خارجي سري يتحكم بالجهاز، ثم نصبوا فخاً رقمياً وهمياً (Honeypot) أوقع بالشبح لحظة اتصاله التالي!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="op-lesson">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span><strong>الزبدة التقنية:</strong> جهازك لو كان غير محمي قد يتحول إلى "جهاز زومبي" ينفذ هجمات باسمك؛ والتحقيق الجنائي الرقمي الحقيقي يفحص عمق الترافيك والذاكرة وليس مجرد عنوان الـ IP الظاهري.</span>
+                </div>
+            </div>
+
+            <!-- Operation 1 -->
+            <div class="glass-card spotlight-card op-card">
+                <div class="op-header">
+                    <span class="op-badge"><i class="fa-solid fa-building-columns"></i> بنوك وأموال</span>
+                    <span class="op-year">2016</span>
+                </div>
+                <h3>عملية المليار دولار: سرقة بنك بنغلاديش المركزي (عصابة لازاروس)</h3>
+                <p class="op-summary">
+                    أجرأ محاولة سرقة بنكية عبر الإنترنت في التاريخ؛ الهكرز كانوا قاب قوسين أو أدنى من سحب 1,000,000,000 دولار من الاحتياطي الفيدرالي في نيويورك!
+                </p>
+                <div class="op-steps">
+                    <div class="step-item">
+                        <span class="step-num">1</span>
+                        <div>
+                            <strong>الطعم والمصيدة:</strong>
+                            <p>إيميل عادي جداً فيه ملف سيرة ذاتية لوظيفة شاغرة، فتحه موظف ونزل فيروس خفي بالشبكة الداخلية للبنك.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">2</span>
+                        <div>
+                            <strong>المراقبة والتسلل (سنة كاملة):</strong>
+                            <p>جلسوا يراقبون شاشات الموظفين ويتعلمون مواعيد نومهم، وعدلوا كود برنامج التحويلات المالية (SWIFT).</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">3</span>
+                        <div>
+                            <strong>التمويه الذكي:</strong>
+                            <p>عطلوا طابعة البنك المركزية وأرسلوا لها أمر "الورق خلص" عشان ما تطبع إشعارات التحويل للموظفين في الصباح!</p>
+                        </div>
+                    </div>
+                    <div class="step-item highlight-step">
+                        <span class="step-num"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                        <div>
+                            <strong>الغلطة اللي فضحتهم:</strong>
+                            <p>خطأ إملائي تافه! كتبوا كلمة Foundation بشكل مغلوط (Fandation)، فشك موظف التدقيق وألغى باقي التحويلات بعد ما سحبوا 81 مليون دولار فقط.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="op-lesson">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span><strong>الزبدة التقنية:</strong> التدقيق البشري واليقظة الإملائية للأرقام والحسابات قد تكون خط الدفاع الأخير لما تسقط كل برامج الحماية.</span>
+                </div>
+            </div>
+
+            <!-- Operation 2 -->
+            <div class="glass-card spotlight-card op-card">
+                <div class="op-header">
+                    <span class="op-badge"><i class="fa-solid fa-atom"></i> سلاح سيبراني عسكري</span>
+                    <span class="op-year">2010</span>
+                </div>
+                <h3>فيروس ستوكسنت (Stuxnet): السلاح الرقمي اللي فجر المفاعلات بدون صاروخ!</h3>
+                <p class="op-summary">
+                    أول سلاح رقمي بالعالم يسبب دماراً فيزيائياً لمعدات حديدية صلبة داخل منشأة نطنز النووية المحصنة تحت الأرض ومفصولة تماماً عن الإنترنت!
+                </p>
+                <div class="op-steps">
+                    <div class="step-item">
+                        <span class="step-num">1</span>
+                        <div>
+                            <strong>كيف دخل والمنشأة مفصولة؟</strong>
+                            <p>عبر فلاش ميموري (USB) تركه عميل سري في ممر المنشأة؛ التقطه فني وشبكه بجهاز التحكم الداخلي.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">2</span>
+                        <div>
+                            <strong>استغلال 4 ثغرات نادرة (0-Day):</strong>
+                            <p>الفيروس كان يحمل 4 ثغرات سرية غير معروفة عالمياً مكنته من الانتشار بصمت بين أجهزة ويندوز وأنظمة سيمنز الصناعية (PLC).</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">3</span>
+                        <div>
+                            <strong>الضربة القاتلة والتزييف:</strong>
+                            <p>تلاعب بسرعة دوران أجهزة الطرد المركزي وخلاها تدور بسرعة جنونية حتى تفجرت، وبنفس الوقت كان يعرض على شاشات المراقبين إن كل شيء سليم وطبيعي 100%!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="op-lesson">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span><strong>الزبدة التقنية:</strong> فصل الأجهزة عن الإنترنت لا يكفي إذا كانت منافذ الـ USB مفتوحة لأي فلاش مجهول؛ العزل الفيزيائي الكامل يتطلب إغلاق كل المنافذ.</span>
+                </div>
+            </div>
+
+            <!-- Operation 3 -->
+            <div class="glass-card spotlight-card op-card">
+                <div class="op-header">
+                    <span class="op-badge"><i class="fa-solid fa-mask"></i> عالم الدارك ويب</span>
+                    <span class="op-year">2013</span>
+                </div>
+                <h3>سقوط طريق الحرير (Silk Road): كيف أطاحوا بملك الإنترنت المظلم بمكتبة عامة؟</h3>
+                <p class="op-summary">
+                    سوق الدارك ويب الأسطوري الذي كان يبيع كل شيء ممنوع بمليارات الدولارات بالبتكوين، وكيف تم اصطياد مؤسسه بلحظة تشتيت درامية!
+                </p>
+                <div class="op-steps">
+                    <div class="step-item">
+                        <span class="step-num">1</span>
+                        <div>
+                            <strong>التحصين الرقمي التام:</strong>
+                            <p>الموقع كان يعتمد على شبكة تور (Tor) المشفرة والعملات الرقمية، ومستحيل تحديد عنوان السيرفر الجغرافي من خلال الإنترنت.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">2</span>
+                        <div>
+                            <strong>الخطأ البشري الأول في 2011:</strong>
+                            <p>محقق فدرالي جلس يبحث في أرشيف الإنترنت، ولقى منشور قديم في منتدى برمجة سنة 2011 يروج للموقع وكان كاتبه حاط إيميله الشخصي بالخطأ قبل ما ينتبه ويحذفه!</p>
+                        </div>
+                    </div>
+                    <div class="step-item highlight-step">
+                        <span class="step-num"><i class="fa-solid fa-handcuffs"></i></span>
+                        <div>
+                            <strong>لحظة القبض الميداني:</strong>
+                            <p>داهموه في مكتبة سان فرانسيسكو العامة؛ خطط الضباط لشجار وهمي مفتعل خلفه، ولما التفت استغلوا نصف الثانية وخطفوا لابتوبه وهو مفتوح قبل أن يقفله ويتشفر الهاردسك!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="op-lesson">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span><strong>الزبدة التقنية:</strong> مهما كان التشفير قوياً، سجل أفعالك القديمة على الإنترنت يظل محفوظاً، وأي خطأ بشري واحد كفيل بهدم أعلى درجات التخفي.</span>
+                </div>
+            </div>
+
+            <!-- Operation 4 -->
+            <div class="glass-card spotlight-card op-card">
+                <div class="op-header">
+                    <span class="op-badge"><i class="fa-brands fa-x-twitter"></i> اختراق الحسابات الكبرى</span>
+                    <span class="op-year">2020</span>
+                </div>
+                <h3>اختراق تويتر الكبير: مراهق عمره 17 سنة سيطر على حسابات إيلون ماسك وأوباما!</h3>
+                <p class="op-summary">
+                    يوم نشرت أشهر حسابات العالم الموثقة تغريدة موحدة: "أرسل 1,000 دولار بالبتكوين وسأرجعها لك 2,000 دولار!".. فكيف تمت السيطرة؟
+                </p>
+                <div class="op-steps">
+                    <div class="step-item">
+                        <span class="step-num">1</span>
+                        <div>
+                            <strong>الاحتيال الهاتفي الصوتي (Vishing):</strong>
+                            <p>اتصل المخترق بموظف في قسم خدمة العملاء بتويتر وزعم أنه من الدعم الفني الداخلي للشركة ويحتاج تحديث إعدادات الـ VPN.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">2</span>
+                        <div>
+                            <strong>الوصول للوحة التحكم السرية:</strong>
+                            <p>أعطاه الموظف بياناته، ودخل المخترق على لوحة إدارية خاصة بموظفي تويتر (Internal Admin Tool) تتيح تغيير إيميل وباسوورد أي حساب بالعالم!</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-num">3</span>
+                        <div>
+                            <strong>الاستيلاء على 130 حساب موثق:</strong>
+                            <p>خلال دقائق غيّر بيانات حسابات إيلون ماسك، بيل غيتس، باراك أوباما، وأبل، ونشر التغريدات الاحتيالية وسحب ملايين الدولارات قبل إيقاف المنصة.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="op-lesson">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span><strong>الزبدة التقنية:</strong> أقوى باسوورد وحماية في حسابك الشخصي لن تمنع الاختراق إذا كانت لوحة الموظفين الداخلية غير محمية بصلاحيات متعددة ومراقبة دقيقة.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section (2022 - 2026) -->
+    <section id="articles" class="section">
+        <div class="section-header">
+            <span class="sub-title"><i class="fa-solid fa-newspaper"></i> أرشيف الأحداث الواقعية</span>
+            <h2 class="title">أحداث ومقالات الأمن السيبراني (2022 - 2026)</h2>
+            <p class="description">
+                كواليس أهم الهجمات والوقائع التقنية اللي هزت العالم من 2022 لين 2026، مكتوبة بسواليف عامية واضحة مع نصائح أمنية لحماية أجهزتك.
+            </p>
+        </div>
+
+        <!-- Filter Buttons by Year -->
+        <div class="year-filter-wrapper">
+            <div class="year-filters glass-pill">
+                <button class="filter-btn active" data-year="all"><i class="fa-solid fa-globe"></i> كل السنوات</button>
+                <button class="filter-btn" data-year="2022">2022</button>
+                <button class="filter-btn" data-year="2023">2023</button>
+                <button class="filter-btn" data-year="2024">2024</button>
+                <button class="filter-btn" data-year="2025">2025</button>
+                <button class="filter-btn" data-year="2026">2026 (الآن)</button>
+            </div>
+            
+            <div class="search-box glass-pill">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="articleSearch" placeholder="ابحث عن حدث أو مصطلح...">
+            </div>
+        </div>
+
+        <!-- Articles Grid Container -->
+        <div class="articles-grid" id="articlesContainer">
+            <!-- Dynamically injected via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Terminal Simulator Section -->
+    <section id="terminal" class="section">
+        <div class="section-header">
+            <span class="sub-title"><i class="fa-solid fa-terminal"></i> العب وجرب</span>
+            <h2 class="title">تيرمنال الهكر التفاعلي</h2>
+            <p class="description">
+                طرفية تفاعلية تقدر تجرب تكتب فيها أوامر بسيطة زي المحترفين! اكتب <code class="inline-code">help</code> لعرض الأوامر.
+            </p>
+        </div>
+
+        <div class="interactive-terminal glass-card spotlight-card">
+            <div class="terminal-bar">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">cyber-shell@antigravity-zone:~</div>
+                <div class="terminal-status"><span class="pulse-green"></span> متصل بالسيرفر</div>
+            </div>
+
+            <div class="terminal-content" id="terminalOutput">
+                <div class="term-line welcome-msg">
+                    ================================================================<br>
+                    🛡️ أهلاً بك في طرفية سايبر زون (v2.6) - جرب الأوامر الحقيقية!<br>
+                    اكتب <span class="neon-highlight">help</span> لعرض قائمة الأوامر، أو <span class="neon-highlight">scan</span> لفحص اتصالك.<br>
+                    ================================================================
+                </div>
+            </div>
+
+            <div class="terminal-input-row">
+                <span class="prompt-symbol">root@cyberzone:~#</span>
+                <input type="text" id="terminalInput" placeholder="اكتب أمرك هنا..." autocomplete="off">
+            </div>
+
+            <div class="quick-commands">
+                <span>أوامر سريعة:</span>
+                <button class="cmd-chip" data-cmd="help">help</button>
+                <button class="cmd-chip" data-cmd="scan">scan</button>
+                <button class="cmd-chip" data-cmd="stats">stats</button>
+                <button class="cmd-chip" data-cmd="quote">quote</button>
+                <button class="cmd-chip" data-cmd="clear">clear</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Detail Modal -->
+    <div class="modal-overlay" id="articleModal">
+        <div class="glass-card modal-content" id="modalCard">
+            <button class="modal-close" id="modalClose" aria-label="إغلاق">&times;</button>
+            <div class="modal-header">
+                <div class="modal-year-tag" id="modalYear">2024</div>
+                <h2 id="modalTitle">عنوان الموضوع</h2>
+                <div class="modal-meta" id="modalMeta">
+                    <span><i class="fa-regular fa-clock"></i> وقت القراءة: 4 دقائق</span>
+                    <span><i class="fa-solid fa-tag"></i> تصنيف: أحداث سيبرانية</span>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Injected via JS -->
+            </div>
+            <div class="modal-footer">
+                <button class="cyber-btn primary-btn" id="modalCloseBtn">فهمت السالفة! تسلم 🤝</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Policy Details Modal (Google AdSense Compliant) -->
+    <div class="modal-overlay" id="policyModal">
+        <div class="glass-card modal-content" id="policyModalCard">
+            <button class="modal-close" id="policyModalClose" aria-label="إغلاق">&times;</button>
+            <div class="modal-header">
+                <div class="modal-year-tag" id="policyTag"><i class="fa-solid fa-scale-balanced"></i> صفحة قانونية رسمية</div>
+                <h2 id="policyTitle">سياسة الخصوصية</h2>
+                <div class="modal-meta" id="policyMeta">
+                    <span><i class="fa-solid fa-shield-check"></i> متوافقة مع متطلبات Google AdSense و GDPR</span>
+                    <span><i class="fa-regular fa-clock"></i> آخر تحديث: أكتوبر 2026</span>
+                </div>
+            </div>
+            <div class="modal-body" id="policyBody">
+                <!-- Injected via JS dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="cyber-btn primary-btn" id="policyCloseBtn">فهمت وأوافق على البنود 👍</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner (Google AdSense & GDPR Requirement) -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-icon"><i class="fa-solid fa-cookie-bite"></i></div>
+            <p>
+                نستخدم ملفات تعريف الارتباط (Cookies) لتحسين تجربة تصفحك وتقديم إعلانات متوافقة مع اهتماماتك عبر شبكة Google AdSense، وفقاً لأعلى معايير الخصوصية وحماية البيانات.
+            </p>
+        </div>
+        <div class="cookie-actions">
+            <button class="cyber-btn primary-btn cookie-accept-btn" id="cookieAccept">موافق على الكوكيز</button>
+            <button class="cookie-link-btn open-policy-btn" data-policy="privacy">قراءة سياسة الخصوصية</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="glass-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <span class="logo-title">سايبر<span class="neon-text">زون</span></span>
+                </div>
+                <p>منصة عربية مستقلة تهدف لتبسيط علوم البرمجة والأمن السيبراني وحماية الأجهزة لكل فئات المجتمع بأسلوب ممتع ومفهوم بدون تعقيد.</p>
+                <div class="compliance-badge">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>موقع مهيأ ومتوافق مع إرشادات جودة Google AdSense</span>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>أقسام المنصة</h4>
+                <a href="#hero">الرئيسية</a>
+                <a href="#analogies">سواليف البيت</a>
+                <a href="#programming">وش البرمجة؟</a>
+                <a href="#cybersecurity">الأمن السيبراني</a>
+                <a href="#myths">خرافات شائعة</a>
+                <a href="#phishing-sim">محاكي الفخاخ</a>
+                <a href="#yt-breakdowns">كواليس الوثائقيات</a>
+                <a href="#articles">أرشيف 2022-2026</a>
+            </div>
+
+            <div class="footer-policies">
+                <h4>الصفحات الإلزامية (AdSense)</h4>
+                <a href="#policyModal" class="open-policy-btn" data-policy="privacy"><i class="fa-solid fa-user-lock"></i> سياسة الخصوصية (Privacy)</a>
+                <a href="#policyModal" class="open-policy-btn" data-policy="terms"><i class="fa-solid fa-file-contract"></i> شروط الاستخدام (Terms)</a>
+                <a href="#policyModal" class="open-policy-btn" data-policy="disclaimer"><i class="fa-solid fa-triangle-exclamation"></i> إخلاء المسؤولية (Disclaimer)</a>
+                <a href="#policyModal" class="open-policy-btn" data-policy="about"><i class="fa-solid fa-circle-info"></i> من نحن (About Us)</a>
+                <a href="#policyModal" class="open-policy-btn" data-policy="contact"><i class="fa-solid fa-envelope"></i> اتصل بنا (Contact Us)</a>
+            </div>
+
+            <div class="footer-tip">
+                <h4>إشعار الأمان والتوعية 💡</h4>
+                <p class="quote-text">"جميع المحتويات والأمثلة المطروحة مخصصة لأغراض التوعية الأمنية والتعليم الدفاعي فقط، وهدفنا هو بناء مجتمع رقمي واعٍ ومحصن ضد الاحتيال."</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة © 2026 منصة سايبر زون | متوافق مع معايير إعلانات Google AdSense وسياسات الخصوصية الدولية</p>
+        </div>
+    </footer>
+
+    <script>
+/**
+ * سايبر زون | Cyber Zone
+ * JavaScript Core
+ * - مقالات وأحداث حقيقية في الأمن السيبراني (2022 - 2026) مع نصائح أمنية قوية
+ * - تتبع الماوس الهادئ وتأثيرات الإضاءة الموزونة والمريحة للعين
+ * - تيرمنال تفاعلي
+ */
+
+// ==========================================
+// 1. قاعدة بيانات مقالات وحوادث الأمن السيبراني (2022 - 2026)
+// شرح بالعامية الممتعة، أحداث واقعية موجزة، ونصائح لحماية الأنظمة
+// ==========================================
+const cyberArticles = [
+    // --- 2022 ---
+    {
+        id: "art-2022-1",
+        year: 2022,
+        category: "برامج الفدية (Ransomware)",
+        readTime: "4 دقائق",
+        title: "2022 وسنة كابوس الفدية: يوم شلوا دولة كاملة وطلبوا ملايين بالبتكوين!",
+        summary: "عصابة Conti اخترقت وزارة المالية في كوستاريكا وعطلت الجمارك والرواتب، وأعلنت الدولة حالة طوارئ وطنية لأول مرة بسبب هجوم سيبراني!",
+        fullContent: `
+            <p>سنة 2022 شهدت واحدة من أعنف موجات برامج الفدية في التاريخ، والعصابات مثل Conti و LockBit ما عادوا يستهدفون شركات عادية بس، بل دول وحكومات بأكملها!</p>
+            
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                في أبريل 2022، موظف في وزارة المالية في دولة كوستاريكا ضغط على رابط مشبوه في بريده. خلال ساعات، انتشرت برمجية Conti المشفرة في كل مفاصل الوزارة. تم تشفير أنظمة الضرائب والجمارك بالكامل، وتوقفت حركة التصدير بالموانئ وتأخرت رواتب الموظفين الحكوميين لأيام طويلة! العصابة طلبت فدية 20 مليون دولار، واضطر رئيس الجمهورية يعلن حالة طوارئ وطنية لحماية البنية التحتية.
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>النسخ الاحتياطي المعزول (Immutable / Air-gapped Backup):</strong> احفظ نسخ ملفاتك وسيرفراتك في هاردسك أو سحابة غير قابلة للتعديل أو الحذف حتى لو دخل الهكر.</li>
+                <li><strong>تطبيق مبدأ الصلاحيات الأقل (Least Privilege):</strong> لا تعطي أي موظف صلاحية المدير العام (Admin) إلا للشغل اللي يحتاجه فقط.</li>
+                <li><strong>تدريب دوري ضد التصيد (Phishing Simulations):</strong> درب فريقك كيف يكشف الروابط المشبوهة برقم وهمي قبل لا يطيح الفأس بالراس.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> الفدية ما تدفعها أبداً؛ لأن 80% من اللي دفعوا رجعوا انسرقوا مرة ثانية، والحل الوحيد هو نسخة احتياطية نظيفة ترجع منها نظامك برأس مرفوع.
+            </div>
+        `
+    },
+    {
+        id: "art-2022-2",
+        year: 2022,
+        category: "ثغرات برمجية (Log4Shell)",
+        readTime: "4 دقائق",
+        title: "صدمة ثغرة Log4j: الكود الصغير اللي دوّخ العالم وخلا مهندسي السايبر يسهرون ليالي!",
+        summary: "كود صغير ومجاني مستخدم لتسجيل الأحداث في ملايين السيرفرات طلع فيه ثغرة خلت أي شخص يقدر يخترق أجهزة عملاقة بمجرد كتابة رسالة بالشات!",
+        fullContent: `
+            <p>في 2022 كان العالم كله مستنفر بسبب ثغرة <strong>Log4Shell</strong> في مكتبة جافا مفتوحة المصدر اسمها Log4j. الثغرة صنفت بـ 10 من 10 في مقياس الخطورة العالمي!</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                اكتشف لاعبون في سيرفرات لعبة ماينكرافت إنهم بمجرد ما يكتبون أمر برمجي قصير يبدأ بـ <code>\${jndi:ldap://...}</code> داخل صندوق الدردشة العام، السيرفر يروح من نفسه يتصل برابط الهكر وينزل كود يشغله بصلاحيات مطلقة! بعدها اتضح إن نفس المكتبة هذي موجودة في سيرفرات أبل، أمازون، تسلا، وملايين الخدمات السحابية حول كوكب الأرض.
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>حصر المكونات البرمجية (SBOM):</strong> لازم تعرف كل مكتبة طرف ثالث (Third-party library) داخلة في بناء تطبيقك.</li>
+                <li><strong>تحديث الاعتماديات دورياً (Dependency Auditing):</strong> استخدم أدوات أوتوماتيكية زي Dependabot عشان تنبهك أول ما تطلع ثغرة بأي مكتبة قديمة.</li>
+                <li><strong>تقييد الاتصالات الخارجية للسيرفر:</strong> لا تسمح لسيرفر قواعد البيانات أو الباك إند بالاتصال بمواقع عشوائية بالإنترنت بدون إذن مسبق.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> الكود مفتوح المصدر نعمة عظيمة، لكن ترك المكتبات بدون تحديث وفحص كأنك حاط قفل حديد على الباب وناسي الشباك مفتوح.
+            </div>
+        `
+    },
+    {
+        id: "art-2022-3",
+        year: 2022,
+        category: "الهندسة الاجتماعية واختراق السحاب",
+        readTime: "4 دقائق",
+        title: "اختراق أوبر المدوّي: مراهق عمره 18 سنة دخل سيرفرات الشركة عبر إزعاج الواتساب!",
+        summary: "عصابة Lapsus$ اخترقت واحدة من أضخم شركات النقل بالعالم مو عبر ثغرة تقنية معقدة، بل بمحاصرة موظف بإشعارات التحقق وخدعة واتساب ذكية!",
+        fullContent: `
+            <p>في سبتمبر 2022، عاشت شركة أوبر زلزالاً سيبرانياً لما اخترق حساباتهم الداخلية شاب عمره 18 سنة ونشر صور شاشات أدواتهم الحساسة وقنوات سلاك للموظفين!</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                المخترق اشترى باسوورد موظف متعاقد مع أوبر كان مسرب من كمبيوتر مصاب بفايروس سابق. واجهته عقبة: الحساب محمي بالتحقق بخطوتين (MFA). وش سوى؟ جلس يرسل طلبات دخول كل دقيقة الساعة 2 بالليل لين تعب الموظف. بعدها تواصل معه بالواتساب منتحلاً صفة الدعم الفني لأوبر وقال له: "فيه خلل بالإشعارات، وافق على الطلب الأخير عشان نلغي الإزعاج". الموظف ضغط موافقة، وبثواني كان المخترق داخل الشبكة الداخلية وحصل على صلاحيات الدومين كاملة!
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>الاعتماد على مفاتيح الأمان الفيزيائية (FIDO2 / YubiKey):</strong> تمنع تماماً أي عملية دخول بدون لمس المفتاح الفعلي المتصل بالجهاز.</li>
+                <li><strong>استخدام مطابقة الأرقام (Number Matching):</strong> استبدل خيار 'موافق/رفض' بإدخال الرقم المعروض على الشاشة عشان تمنع الموافقة بالخطأ.</li>
+                <li><strong>توعية الموظفين بعدم التجاوب بالواتساب:</strong> الدعم الفني الحقيقي ما يتواصل معك برقم شخصي يطلب منك توافق على تنبيه دخول.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> أضعف حلقة في منظومة الأمان هي العنصر البشري؛ أقوى جدار حماية ما يقدر يحميك إذا أعطيت المفتاح بنفسك للهكر وأنت ما تدري.
+            </div>
+        `
+    },
+    {
+        id: "art-2022-4",
+        year: 2022,
+        category: "الهجمات السيبرانية العسكرية وتدمير العتاد",
+        readTime: "4 دقائق",
+        title: "برمجية AcidRain: الهجوم الصامت اللي مسح مودمات الأقمار الصناعية بساعة الصفر!",
+        summary: "هجوم سيبراني استهدف شركة الأقمار الصناعية Viasat في أوروبا، ومسح الفلاش ميموري لعشرات آلاف المودمات في نفس اللحظة وعطل توربينات الرياح!",
+        fullContent: `
+            <p>في فجر 24 فبراير 2022، وقع هجوم سيبراني يعتبر من أجرأ الهجمات على البنية التحتية للاتصالات الفضائية باستخدام برمجية مسح خبيثة سميت <strong>AcidRain</strong>.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                المهاجمون استغلوا ثغرة في خادم إدارة شبكة VPN خاص بشركة Viasat للأقمار الصناعية، ومن خلاله مرروا كوداً مسحياً خبيثاً إلى مودمات الزبائن (Satellite Terminals). الكود كان مبرمجاً إنه يمسح ذاكرة الفلاش بالكامل ويكتب مكانها بيانات فارغة (Overwriting)، مما حول أكثر من 40 ألف جهاز استقبال إلى قطع بلاستيكية ميتة لا تعمل! تسبب الهجوم في شلل تام لاتصالات الطوارئ وتوقف 5,800 توربينة رياح في ألمانيا عن العمل لأنها كانت تدار عن بعد عبر الأقمار.
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>عزل شبكات إدارة الأجهزة (Out-of-band Management):</strong> لا تخلي خوادم تحديث العتاد متصلة بالإنترنت المفتوح.</li>
+                <li><strong>فحص توقيع البرامج الثابتة (Signed Firmware Only):</strong> تأكد إن الأجهزة ما تقبل تثبيت أي تحديث إلا بمفتاح تشفير رقمي صلب وموثوق.</li>
+                <li><strong>خطة الطوارئ البديلة (Redundant Comms):</strong> المنشآت الحيوية لازم يكون عندها وسيلة اتصال أرضية بديلة في حال تعطل الفضاء الرقمي.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> السايبر اليوم صار يكسر أجهزة ويدمر بنية تحتية حقيقية، تأمين أجهزة الراوتر والمودمات لا يقل أهمية عن تأمين السيرفرات الضخمة.
+            </div>
+        `
+    },
+
+    // --- 2023 ---
+    {
+        id: "art-2023-1",
+        year: 2023,
+        category: "الذكاء الاصطناعي والهكرز",
+        readTime: "4 دقائق",
+        title: "2023 وانفجار الذكاء الاصطناعي: يوم تعلم ChatGPT يسوي فيروسات وطلع الـ Prompt Injection!",
+        summary: "أول ما انتشرت نماذج الـ AI التوليدية، الهكرز استغلوها لتوليد فيروسات متغيرة الهيكل، وظهرت تقنية حقن الأوامر لخداع الروبوتات وتسريب الأسرار!",
+        fullContent: `
+            <p>سنة 2023 كانت نقطة تحول كبرى، حيث صار بإمكان أي شخص كتابة برمجيات خبيثة متقدمة بمجرد صياغة أسئلة ذكية للذكاء الاصطناعي، وظهر فن <strong>Jailbreaking</strong> للـ LLMs.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                باحثون أمنيون أثبتوا إمكانية خداع شات جي بي تي عبر تقنية تسمى (DAN / Jailbreak) وجعله يكتب فيروسات (Polymorphic Malware) تغير شكل تشفيرها في كل مرة يتم تشغيلها عشان تتفادى برامج مكافحة الفيروسات العادية. وبنفس الوقت ظهرت هجمات <strong>Prompt Injection</strong>: مهاجمون كتبوا تعليمات مخفية داخل صفحات ويب أو سير ذاتية، ولما جاء نموذج الذكاء الاصطناعي يلخص الصفحة، قرأ التعليمات المخفية وأرسل بيانات الشركة الحساسة لسيرفر خارجي!
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>فصل مدخلات المستخدم عن تعليمات النظام:</strong> في تطبيقات الـ AI، لا تعطي النموذج صلاحية الوصول المباشر لقواعد البيانات بدون مراجعة بشرية أو طبقة فلترة أمان.</li>
+                <li><strong>لا تضع أسرار شركتك في روبوتات الدردشة:</strong> لا تكتب أكواد حساسة أو باسووردات داخل شات الذكاء الاصطناعي العام لأنها قد تستخدم في تدريب النماذج لاحقاً.</li>
+                <li><strong>أنظمة كشف الـ Prompt Injection (Guardrails):</strong> ركب جدران حماية خاصة بالذكاء الاصطناعي تفحص المدخلات قبل وصولها للنموذج.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> الذكاء الاصطناعي سلاح ذو حدين؛ المهاجم يستخدمه لأتمتة الاختراق، وأنت لازم تستخدمه لأتمتة الدفاع والمراقبة.
+            </div>
+        `
+    },
+    {
+        id: "art-2023-2",
+        year: 2023,
+        category: "سلاسل الإمداد واختراق الملفات",
+        readTime: "5 دقائق",
+        title: "هجوم MOVEit الكارثي: ثغرة SQL واحدة سرقت بيانات 60 مليون شخص ومئات البنوك!",
+        summary: "عصابة CL0P استغلت ثغرة صفرية في أداة مشهورة لنقل الملفات الآمنة، وسحبت بيانات آلاف الشركات والجامعات والحكومات في صمت تام!",
+        fullContent: `
+            <p>في مايو 2023، حدث واحد من أضخم هجمات سرقة البيانات الجماعية في التاريخ عبر استغلال أداة نقل الملفات الشهيرة <strong>MOVEit Transfer</strong>.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                عصابة السايبر الروسية CL0P اكتشفت ثغرة SQL Injection من نوع الـ Zero-Day (غير معروفة للمطور). العصابة ما شفرت الملفات ولا قفلت السيرفرات، بل جلست بهدوء لمدة أيام تسحب ملفات الرواتب، التأمينات، السجلات الطبية، وأرقام الحسابات البنكية من أكثر من 2,700 منظمة حول العالم من ضمنها خطوط الطيران، البنوك الكبرى، ووزارات حكومية! وبعد ما حملوا ملايين التيرابايت، ابتزوا كل جهة على حدة لنشر بياناتها.
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>التشفير في حالة السكون (Encryption at Rest):</strong> شفر ملفاتك الحساسة بمفاتيح خاصة حتى لو تم سحب الملف لا يمكن قراءته بدون المفتاح.</li>
+                <li><strong>تقليل بقاء الملفات القديمة (Data Retention Policies):</strong> احذف الملفات الحساسة من خوادم النقل المؤقتة بمجرد انتهاء المهمة، لا تترك كشوف رواتب لسنين في سيرفر مفتوح.</li>
+                <li><strong>استخدام جدار حماية تطبيقات الويب (WAF):</strong> يساعد في حجب هجمات حقن الـ SQL والأنماط الغريبة قبل وصولها لقاعدة البيانات.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> البيانات اللي ما تخزنها هي البيانات الوحيدة اللي مستحيل أحد يسرقها منك؛ طبق سياسة التخلص الآمن من الملفات المؤقتة.
+            </div>
+        `
+    },
+    {
+        id: "art-2023-3",
+        year: 2023,
+        category: "الهندسة الاجتماعية المتقدمة",
+        readTime: "4 دقائق",
+        title: "زلزال كازينوهات لاس فيغاس: مكالمة 10 دقائق للدعم الفني كلفت 100 مليون دولار خسائر!",
+        summary: "مجموعة هكرز مراهقين (Scattered Spider) قفلوا فنادق MGM الشهيرة بالكامل، وأجبروا النزلاء يفتحون أبواب غرفهم بمفاتيح حديد بعد مكالمة هاتفية ذكية!",
+        fullContent: `
+            <p>في سبتمبر 2023، تعرضت فنادق وكازينوهات MGM Resorts في لاس فيغاس لشلل تشغيلي شامل كبدها خسائر تجاوزت 100 مليون دولار ومشاكل لا تحصى.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                المهاجمون دخلوا على حساب لينكد إن لأحد مسؤولي تقنية المعلومات في الفندق وعرفوا اسمه وبياناته العامة. بعدها اتصلوا على مكتب الدعم الفني الداخلي (Help Desk) بصوت واثق وزعموا إنهم الموظف نفسه وإن جواله ضاع ويبون إعادة تعيين رمز الدخول الثنائي (MFA Reset). موظف الدعم صدقهم بدون ما يتحقق بصرامة، وعطاهم باسوورد جديد! خلال 15 دقيقة سيطروا على بيئة سحابة Okta و Azure، وشفروا السيرفرات مما أدى لتعطل ماكينات القمار، أجهزة الحجز، وحتى بطاقات فتح غرف الفنادق!
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>بروتوكول صارم لإعادة تعيين الحسابات:</strong> لا تقبل أبداً مكالمة هاتفية لتغيير باسوورد أو إيقاف التحقق بخطوتين بدون تحقق عبر مكالمة فيديو حية أو مقابلة المدير المباشر.</li>
+                <li><strong>فصل شبكة الضيوف عن شبكة الإدارة الحيوية:</strong> تأكد إن أنظمة المفاتيح والغرف تعمل بمعزل عن شبكة الخوادم المركزية.</li>
+                <li><strong>مراقبة الحسابات ذات الصلاحيات العالية (PAM):</strong> أي دخول من جهاز غريب لحساب مدير نظام لازم يدق جرس الإنذار فوراً.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> أحياناً أخطر ثغرة في الشركة مو غلطة كود في السيرفر، بل طيبة قلب ولطافة موظف الدعم الفني اللي حب يساعد شخص محتال!
+            </div>
+        `
+    },
+    {
+        id: "art-2023-4",
+        year: 2023,
+        category: "ثغرات الصفر كليك (Zero-Click Exploits)",
+        readTime: "4 دقائق",
+        title: "رعب برمجيات بيغاسوس: كيف يخترقون جوالك بدون ما تلمس الشاشة نهائياً؟",
+        summary: "اكتشاف هجمات ثغرات (Zero-Click) في أجهزة آيفون؛ رسالة خفية واحدة على iMessage تخترق الكاميرا والمايك بدون ما تحس بأي شيء!",
+        fullContent: `
+            <p>في 2023 كشفت مختبرات Citizen Lab و Kaspersky عن هجمات تجسس معقدة استهدفت هواتف ذكية بدون أي تفاعل بشري تحت اسم عملية <strong>Operation Triangulation</strong>.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                الضحية يستلم رسالة iMessage عادية مرفق معها ملف صورة بتنسيق خاص. تطبيق الرسائل في الهاتف يقوم تلقائياً بمعالجة الصورة بالخلفية لإنشاء صورة مصغرة (Thumbnail). الصورة كانت تحتوي على كود تلاعب بذاكرة النظام (Buffer Overflow) في معالج الخطوط. بمجرد وصول الرسالة وبدون ما يفتحها المستخدم أو يلمس الجوال، ينفذ الكود نفسه، يحذف الرسالة فوراً عشان ما يترك أثر، ويثبت برمجية تجسس تسحب محادثات الواتساب، الصور، وتشغل المايكرفون!
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>تفعيل نمط الحماية القصوى (Lockdown Mode):</strong> في هواتف آبل، هذا النمط يعطل المعالجة المعقدة للرسائل والخطوط ويمنع 99% من هجمات الصفر كليك.</li>
+                <li><strong>إعادة تشغيل الهاتف يومياً:</strong> أغلب برمجيات التجسس المتقدمة تعيش في الذاكرة العشوائية (RAM) لكي لا تكتشف، وإعادة التشغيل تطردها من الجهاز مؤقتاً.</li>
+                <li><strong>تحديث نظام التشغيل فور نزول التصحيح الأمني:</strong> شركات الهواتف ترسل تحديثات عاجلة (Rapid Security Responses) لسد هذه الثغرات فور اكتشافها.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> إذا كنت شخصية مستهدفة أو تدير أعمالاً حساسة، شغل وضع الحماية القصوى (Lockdown Mode)، ولا تؤجل تحديث هاتفك أبداً.
+            </div>
+        `
+    },
+
+    // --- 2024 ---
+    {
+        id: "art-2024-1",
+        year: 2024,
+        category: "انهيار الأنظمة وتحديثات النواة",
+        readTime: "5 دقائق",
+        title: "زلزال CrowdStrike الأزرق: اليوم اللي طفى فيه تحديث واحد مطارات وبنوك العالم بشاشة الموت!",
+        summary: "19 يوليو 2024، العالم صحى على كابوس حقيقي: لا هكرز ولا قنبلة، مجرد ملف تحديث صغير حجمه 40 كيلوبايت طيح ملايين أجهزة ويندوز بلمح البصر!",
+        fullContent: `
+            <p>يوم الجمعة 19 يوليو 2024 سيبقى مسجلاً كأكبر حادث تعطل تقني في تاريخ البشرية الحديث بسبب خلل أمني في برنامج الحماية <strong>Falcon Sensor</strong> من شركة CrowdStrike.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                أطلقت الشركة تحديثاً سريعاً يحتوي على ملف إعدادات (Channel File 291) لفحص التهديدات الجديدة. الملف كان فيه خطأ منطقي يمرر مؤشر ذاكرة فارغ (Null Pointer Dereference). المشكلة إن البرنامج يعمل في قلب نواة نظام ويندوز (Kernel / Ring 0). أول ما استلمت الأجهزة التحديث، حاول النظام قراءة العنوان الفارغ، فانهار ويندوز على الفور وظهرت شاشة الموت الزرقاء الشهيرة (BSOD)! تعطلت شاشات الرحلات في المطارات، توقفت أنظمة الدفع في البنوك، والمستشفيات اضطرت لكتابة سجلات المرضى على الورق.
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>النشر التدريجي للتحديثات (Staged / Canary Deployment):</strong> لا تدفع التحديث لجميع الأجهزة دفعة واحدة؛ جربه على 1% ثم 10% ثم الباقي.</li>
+                <li><strong>تقليل الاعتماد على صلاحيات النواة (Kernel Mode):</strong> الاتجاه الحديث اليوم ينادي بنقل برامج الأمان إلى وضع المستخدم (User Mode) عشان لو انهار البرنامج، ما ينهار نظام التشغيل معه.</li>
+                <li><strong>خطة استرداد الكوارث بدون اتصال (Out-of-band Recovery):</strong> وفر أدوات إقلاع ذاتي وإمكانية الدخول بالوضع الآمن (Safe Mode) لإصلاح الأجهزة يدوياً بسرعة.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> أداة الحماية التي تملك صلاحيات مطلقة قد تصبح هي نفسها أكبر خطر على استمرارية العمل لو لم تخضع لتدقيق صارم قبل كل تحديث.
+            </div>
+        `
+    },
+    {
+        id: "art-2024-2",
+        year: 2024,
+        category: "الجاسوسية والبرمجيات مفتوحة المصدر",
+        readTime: "5 دقائق",
+        title: "لغز XZ Utils: مبرمج خفي ظل يبني الثقة لـ 3 سنوات ليزرع باباً خلفياً في كل سيرفرات لينكس!",
+        summary: "أخطر محاولة تجسس سيبراني في تاريخ البرمجيات مفتوحة المصدر؛ شخص مجهول يدعى 'Jia Tan' تظاهر بالمساعدة وتولى إدارة مشروع لينكس الحساس ليدس كوداً سرياً!",
+        fullContent: `
+            <p>في أواخر مارس 2024، نجا الإنترنت بأعجوبة من كارثة أمنية محققة كانت ستمنح جهات استخباراتية إمكانية اختراق أي خادم لينكس في العالم عبر ثغرة <strong>CVE-2024-3094</strong>.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                حساب يحمل اسم 'Jia Tan' ظهر عام 2021 وبدأ يساهم بلطف في صيانة مكتبة ضغط الملفات XZ Utils التي يعتمد عليها نظام لينكس وخادم الاتصال الآمن (OpenSSH). المطور الأصلي كان شخصاً وحيداً يعاني من الإرهاق. استغل الحساب هذا التعب، وتحت ضغط حسابات وهمية تطالب بتسليم المشروع لشخص نشيط، حصل Jia Tan على صلاحيات إدارة المشروع. في أوائل 2024، دس كوداً خبيثاً ومعقداً جداً ومخفياً داخل ملفات اختبار غير مريبة، وكان الهدف فتح باب خلفي سري يتيح للمهاجمين التحكم بأي سيرفر بمجرد إرسال مفتاح تشفير عبر SSH!
+            </div>
+
+            <h4>كيف انكشف الأمر بالصدفة البحتة؟</h4>
+            <p>مهندس مايكروسوفت Andres Freund كان يقوم باختبارات سرعة اعتيادية، ولاحظ أن تسجيل الدخول بـ SSH استغرق زيادة 500 ميلي ثانية (نصف ثانية فقط) واستهلاكاً بسيطاً للمعالج! قاده فضوله للبحث في الكود واكتشف الفخ المروع قبل وصوله للنسخ المستقرة للينكس.</p>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>مراجعة الأكواد المتعددة (Multi-Party Code Reviews):</strong> لا تعتمد على موافقة شخص واحد فقط لدمج أكواد في المشاريع الحساسة.</li>
+                <li><strong>تدقيق حزم التوزيعات (Reproducible Builds):</strong> تأكد أن الملف التنفيذي النهائي يطابق تماماً الكود المصدري المكتوب بدون أي تلاعب بالملفات الثنائية.</li>
+                <li><strong>دعم المطورين المتطوعين:</strong> الشركات الكبرى التي تعتمد على أكواد مجانية يجب أن توفر دعماً ومراجعات أمنية للمطورين المستقلين.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> الصبر الاستخباراتي في السايبر قد يمتد لسنوات لزرع ثغرة واحدة؛ الاهتمام بأدق تفاصيل الأداء قد ينقذ العالم الرقمي بأكمله.
+            </div>
+        `
+    },
+    {
+        id: "art-2024-3",
+        year: 2024,
+        category: "القطاع الصحي وتسريب البيانات",
+        readTime: "4 دقائق",
+        title: "شلل القطاع الصحي الأمريكي: اختراق Change Healthcare وفدية 22 مليون دولار بسبب غياب الـ 2FA!",
+        summary: "عصابة BlackCat شلت صيدليات ومستشفيات أمريكا وتسببت في تأخير أدوية مرضى السرطان؛ والسبب حساب دخول عن بُعد بدون تحقق بخطوتين!",
+        fullContent: `
+            <p>في فبراير 2024، تعرضت شركة Change Healthcare لأكبر اختراق للبيانات الصحية في تاريخ الولايات المتحدة، مما تسبب في أزمة صحية ومالية غير مسبوقة.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                مخترقو عصابة BlackCat اشتروا بيانات دخول مسربة لموظف يملك حساباً على بوابة دخول عن بعد (Citrix Portal). البوابة المأساوية لم تكن مفعلة للتحقق بخطوتين (MFA)! دخل المهاجم بسهولة، وتجول لأسابيع في الشبكة، وسحب بيانات أكثر من 100 مليون مريض، ثم شفر قواعد البيانات. توقفت الصيدليات عن صرف الأدوية المغطاة بالتأمين، واضطرت الشركة في النهاية لدفع 22 مليون دولار كفدية بالبتكوين لمحاولة استعادة تشغيل الأنظمة.
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>التحقق بخطوتين إلزامي 100%:</strong> لا تترك بوابة واحدة أو خادم VPN بدون 2FA؛ باب واحد غير مقفل يهدم كل دفاعات القلعة.</li>
+                <li><strong>الفحص المستمر للأصول المكشوفة (Attack Surface Management):</strong> اكتشف السيرفرات والبوابات القديمة المنسية التي قد يجهل الفريق وجودها.</li>
+                <li><strong>تجزئة الشبكات الطبية والمالية:</strong> عزل بيانات المعاملات المالية عن سجلات المرضى حتى لا يؤدي اختراق طرف لسقوط الآخر.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> أحياناً سبب خسارة ملايين الدولارات ليس تقنية خارقة استخدمها الهكر، بل إهمال تفعيل خاصية مجانية موجودة في إعدادات النظام!
+            </div>
+        `
+    },
+    {
+        id: "art-2024-4",
+        year: 2024,
+        category: "أمن الحوسبة السحابية (Cloud Security)",
+        readTime: "4 دقائق",
+        title: "اختراق سحابة Snowflake: كيف تم تسريب بيانات Ticketmaster بمجرد باسوورد قديم لم يتغير؟",
+        summary: "تسريب بيانات مئات الملايين من مشتري تذاكر الحفلات وعملاء البنوك؛ بسبب عدم تفعيل سياسات الدخول الموحد على حسابات المستودعات السحابية!",
+        fullContent: `
+            <p>في صيف 2024، سقطت شركات عملاقة مثل Ticketmaster و Santander Bank ضحية لهجمات منسقة استهدفت قواعد بياناتهم المستضافة على منصة <strong>Snowflake</strong> السحابية.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                المهاجمون ما اخترقوا منصة Snowflake نفسها، بل استهدفوا حسابات العملاء الذين أنشأوا حسابات تجريبية أو قديمة بكلمات مرور مسربة من برمجيات Infostealers سابقة. الحسابات لم تكن تحتوي على قيود لعناوين الـ IP ولم تكن مفعلة للتحقق بخطوتين. استغل المخترقون هذه الحسابات للدخول وسحب مليارات السجلات الحساسة وبيعها في منتديات الدارك ويب.
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>تقييد الدخول بعناوين IP محددة (IP Whitelisting):</strong> امنع أي اتصال بقواعد بيانات السحابة إلا من شبكة الشركة الموثوقة أو عبر VPN مخصص.</li>
+                <li><strong>فرض الـ SSO الموحد:</strong> اربط كل الخدمات السحابية بنظام دخول موحد للشركة يفرض سياسات الأمان وتدوير كلمات المرور.</li>
+                <li><strong>مراقبة تسريبات الموظفين في الدارك ويب:</strong> استخدم أدوات تنبيه فورية لاكتشاف بيانات موظفيك المعروضة للبيع قبل أن يستغلها الهكر.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> حماية السحابة مسؤولية مشتركة؛ المزود يحمي البنية التحتية، لكن ضبط الصلاحيات والأقفال والباسووردات مسؤوليتك أنت وحدك.
+            </div>
+        `
+    },
+
+    // --- 2025 ---
+    {
+        id: "art-2025-1",
+        year: 2025,
+        category: "التزييف العميق المباشر (Real-time Deepfake)",
+        readTime: "4 دقائق",
+        title: "2025 ورعب التزييف العميق: اجتماع فيديو كامل بأشخاص وهميين سرق 25 مليون دولار!",
+        summary: "موظف مالي حضر اجتماع فيديو وشاف مديره التنفيذي وزملاءه بالصوت والصورة ونفذ أوامرهم، واكتشف لاحقاً إنه كان الشخص الوحيد الحقيقي في المكالمة!",
+        fullContent: `
+            <p>مع حلول 2025، لم يعد التزييف العميق مجرد مقاطع فيديو مسجلة ومضحكة، بل تحول إلى أداة جريمة مباشرة وفائقة الدقة بالبث الحي (Live Stream Deepfake).</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                موظف في الفرع المالي لشركة عالمية تلقى بريداً يطلب حضور اجتماع طارئ وسري. انضم الموظف لاجتماع عبر منصة مرئية، ووجد على الشاشة المدير المالي للشركة وعدد من زملائه المقربين. كانوا يتحدثون بنبراتهم المعتادة وبنفس لغة الجسد وتفاصيل الوجه الطبيعية. طلبوا منه إجراء تحويلات مصرفية عاجلة ومقسمة إلى حسابات سرية لإتمام صفقة استحواذ. الموظف نفذ 15 عملية تحويل بقيمة 25 مليون دولار، وبعد أيام تواصل بالصدفة مع المقر الرئيسي ليكتشف أن المدير لم يطلب شيئاً والاجتماع بالكامل كان محاكاة ذكاء اصطناعي بالبث المباشر!
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>اعتماد الكلمات السرية الشفهية (Safe Words):</strong> للأمور المالية الحساسة، اعتمد كلمة سر يتم تبادلها شخصياً على أرض الواقع ولا تكتب في أي مكان رقمي.</li>
+                <li><strong>طلب حركات مفاجئة أثناء المكالمة:</strong> اطلب من الطرف الآخر وضع يده أمام وجهه وتحريكها يميناً ويساراً أو الالتفات السريع؛ خوارزميات التزييف المباشر تعاني من تشوه الصورة (Artifacts) عند وجود عوائق أمام الوجه.</li>
+                <li><strong>التأكيد عبر قنوات اتصال مختلفة (Out-of-band Verification):</strong> قبل تحويل أي مبالغ، اتصل بالمدير على هاتفه الشخصي المعتمد أو تواصل معه بقناة منفصلة.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> في عصر الذكاء الاصطناعي، عينك وأذنك ما عادت أدلة كافية على الهوية؛ البروتوكول المشفر والتأكيد المزدوج هو الحكم الوحيد.
+            </div>
+        `
+    },
+    {
+        id: "art-2025-2",
+        year: 2025,
+        category: "تسميم مستودعات البرمجة (Package Poisoning)",
+        readTime: "4 دقائق",
+        title: "فخاخ مستودعات بايثون وNPM: كود تلوين النصوص اللي سرق مفاتيح التشفير لآلاف المطورين!",
+        summary: "مخترقون رفعوا مكتبات بأسماء تشبه حزم مشهورة (Typosquatting)، وسرقت المفاتيح السرية السحابية من أجهزة المبرمجين فور كتابة npm install!",
+        fullContent: `
+            <p>في 2025 تزايدت هجمات استهداف المطورين مباشرة عبر تسميم مستودعات البرمجة المفتوحة مثل PyPI و NPM لاختراق الشركات من داخل بيئات البرمجة نفسها.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                مهاجمون نشروا حزم بايثون تحمل أسماء قريبة جداً من مكتبات شهيرة، مثل <code>collorama</code> بدلاً من <code>colorama</code>. المبرمجون المستعجلون أخطأوا بحرف واحد وكتبوا أمر التثبيت. فور تشغيل التثبيت (post-install hook)، شغلت الحزمة سكريبت صامتاً يبحث في جهاز المبرمج عن ملفات <code>.env</code> ومفاتيح AWS ومحفظة العملات الرقمية وتوكينات GitHub، وأرسلتها فوراً عبر بوت تلغرام للهكر، واستخدمت المفاتيح لتسميم مشاريع الإنتاج الحقيقية!
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>تثبيت الحزم بالنسخ المحددة والأقفال (Lockfiles):</strong> استخدم <code>package-lock.json</code> مع فحص التجزئة (Hash Verification) للتأكد من عدم تبديل الحزمة.</li>
+                <li><strong>فحص الحزم بأدوات الحماية (Socket / Snyk):</strong> افحص سلوك الحزم قبل تثبيتها للتأكد من أنها لا تشغل أوامر شبكية مشبوهة عند التثبيت.</li>
+                <li><strong>استخدام بيئات معزولة (Sandboxed Dev Containers):</strong> لا تجرب تشغيل مشاريع أو مكتبات مجهولة على نظامك الرئيسي؛ جربها داخل حاوية Docker معزولة.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> جهاز المطور هو المنجم الذهبي للهكر؛ لا تثبت أي حزمة برمجية قبل أن تتأكد من كتابة اسمها الصحيح بحرف حرف.
+            </div>
+        `
+    },
+    {
+        id: "art-2025-3",
+        year: 2025,
+        category: "البنية التحتية الذكية وإنترنت الأشياء",
+        readTime: "4 دقائق",
+        title: "اختراق شبكات شحن السيارات ومحطات الطاقة: لما توقفت محطات الشحن وطلبت فدية!",
+        summary: "هجوم سيبراني استغل بروتوكول شحن السيارات الكهربائية (OCPP)، وتلاعب بأحمال الكهرباء في شبكات المدينة لتعطيل المولدات الذكية!",
+        fullContent: `
+            <p>مع الانتشار الهائل للسيارات الكهربائية وشبكات الشحن المتصلة بالإنترنت، شهد عام 2025 أول هجوم منظم على شبكات الشحن السريع في مدن كبرى.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                المهاجمون فحصوا المنافذ المفتوحة لشواحن سيارات متصلة بالسحاب واكتشفوا ثغرة تجاوز التحقق في خوادم بروتوكول (OCPP). قاموا بإرسال أوامر متزامنة لآلاف الشواحن لطلب أقصى سحب كهربائي في نفس الثانية، ثم قطع التيار وإعادته بشكل متكرر. هذا التذبذب الحاد تسبب في تفعيل قواطع الحماية في المحطات الفرعية للمدينة وانقطاع التيار عن أحياء كاملة، مع ظهور رسائل تطالب بفدية على شاشات محطات الشحن!
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>عزل شبكات الـ IoT في VLAN منفصلة:</strong> أجهزة الشحن والحساسات الذكية يجب أن لا تشارك نفس الشبكة مع خوادم التشغيل الإدارية.</li>
+                <li><strong>تشفير اتصالات الأجهزة الطرفية عبر TLS المتبادل (mTLS):</strong> تأكد أن الجهاز والخادم يوثقان هوية بعضهما بشهادات رقمية مشفرة.</li>
+                <li><strong>أنظمة مراقبة التذبذب والأنماط الشاذة:</strong> ركب حساسات تقطع الاتصال تلقائياً عند ملاحظة سحب غير طبيعي أو متزامن للأحمال.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> كل جهاز ذكي توصله بالكهرباء والإنترنت هو حاسوب كامل؛ إذا لم تؤمنه، فإنه قد يتحول إلى سلاح ضد شبكتك.
+            </div>
+        `
+    },
+    {
+        id: "art-2025-4",
+        year: 2025,
+        category: "الحوسبة الكمومية والتشفير القادم",
+        readTime: "5 دقائق",
+        title: "سباق التشفير المقاوم للكمبيوتر الكمومي: كابوس 'احصد بيانات اليوم واكسرها غداً'!",
+        summary: "الدول وعصابات السايبر تجمع مليارات البيانات المشفرة حالياً وتخزنها، بانتظار الكمبيوتر الكمومي الذي سيكسر تشفير RSA وبنوك العالم بثوانٍ!",
+        fullContent: `
+            <p>في 2025 دخل العالم مرحلة الاستعداد الحرج لما يسمى بـ <strong>Y2Q (Year to Quantum)</strong>، وتغيرت معايير التشفير العالمية بعد إعلان معايير المعهد الوطني للمعايير NIST.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                وكالات استخباراتية رصدت زيادة هائلة في سحب حركة مرور الإنترنت المشفرة من كوابل البحار وتخزينها في مزارع خوادم عملاقة، فيما يعرف بتكتيك (Harvest Now, Decrypt Later). المهاجمون يدركون أنهم لا يستطيعون فك تشفير RSA-2048 أو ECC اليوم، لكنهم يعلمون أن خوارزمية Shor على كمبيوتر كمومي ناضج ستفك هذه البيانات في غضون ثوانٍ بعد سنوات قليلة، لتنكشف المراسلات الدبلوماسية وأسرار براءات الاختراع المخزنة!
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>الانتقال إلى خوارزميات الـ Post-Quantum (PQC):</strong> ابدأ بدعم خوارزميات التشفير الكمومي مثل ML-KEM و ML-DSA المعتمدة حديثاً.</li>
+                <li><strong>استخدام التشفير الهجين (Hybrid Cryptography):</strong> ادمج بين التشفير الكلاسيكي والتشفير ما بعد الكمومي في اتصالات SSH و TLS لضمان الأمان في الحاضر والمستقبل.</li>
+                <li><strong>المرونة المشفرة (Crypto-Agility):</strong> صمم بنيتك البرمجية بحيث يمكنك استبدال خوارزمية التشفير بضغطة زر دون الحاجة لإعادة كتابة النظام بالكامل.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> التشفير صراع سباق مع الزمن؛ البيانات التي ترسلها اليوم قد تكون أهم أسرارك بعد عشر سنوات، حصنها من الآن ضد الغد.
+            </div>
+        `
+    },
+
+    // --- 2026 ---
+    {
+        id: "art-2026-1",
+        year: 2026,
+        category: "حروب الذكاء الاصطناعي الذاتية (Autonomous Cyber)",
+        readTime: "5 دقائق",
+        title: "2026 ومعارك الوكلاء الأذكياء: روبوتات تهاجم وروبوتات تدافع برمشة عين بدون بشر!",
+        summary: "وصلنا لسنة 2026 والسرعة أصبحت تفوق الإدراك البشري؛ وكلاء الـ AI يكتشفون الثغرة ويكتبون الكود ويرقعون النظام في 200 ميلي ثانية!",
+        fullContent: `
+            <p>في عام 2026، انتقل الأمن السيبراني رسمياً إلى مرحلة (Machine-speed Warfare). لم يعد محلل مركز العمليات (SOC) قادراً على مراجعة التنبيهات يدوياً لمواكبة الهجمات.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                إحدى الشركات المالية الكبرى تعرضت لهجوم منسق قاده وكيل ذكاء اصطناعي هجومي مستقل (Autonomous Offensive Agent). الوكيل اختبر مئات المنافذ، حلل كود الفرونت إند، واكتشف ثغرة منطقية مركبة، وقام بتوليد بايلود مخصص بنصف ثانية. في المقابل، تصدى له وكيل الدفاع الذاتي للشركة (Autonomous Defense Agent)، حيث قام بتغيير هيكل عناوين الـ IP ديناميكياً (Moving Target Defense)، وعزل الجلسة، وأعاد كتابة كود الدالة المصابة وترقيعها فورياً في الإنتاج دون أن يتوقف الموقع لثانية واحدة ودون أي تدخل بشري!
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>أتمتة الاستجابة للحوادث (SOAR):</strong> يجب أن تمتلك أنظمة قادرة على حظر العناوين المشبوهة وعزل الأجهزة المصابة في أجزاء من الثانية.</li>
+                <li><strong>التدقيق الصارم لصلاحيات وكلاء الـ AI:</strong> لا تمنح روبوت الحماية صلاحية إيقاف الخوادم الحيوية بدون ضوابط وحدود أمان تمنع خداعه.</li>
+                <li><strong>التحول لمفهوم الدفاع المتحرك (Moving Target Defense):</strong> لا تترك بيئة خوادمك ثابتة التكوين ليسهل حفظها ودراستها من قبل الهكرز.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> في 2026، وظيفة المهندس الأمني تحولت من إطفائي يركض خلف التنبيهات إلى مهندس استراتيجي يدرب ويدير وكلاء الذكاء الاصطناعي ويراقب سلوكهم.
+            </div>
+        `
+    },
+    {
+        id: "art-2026-2",
+        year: 2026,
+        category: "أمن المركبات والروبوتات الذكية",
+        readTime: "4 دقائق",
+        title: "تأمين السيارات ذاتية القيادة والروبوتات: لما يصير الهاك خطراً حقيقياً على الأرواح!",
+        summary: "السيارات تسير بالذكاء الاصطناعي والروبوتات في الشوارع؛ ثغرة في حساسات الـ LiDAR سمحت باختلاق عوائق وهمية وإيقاف حركة المرور بالكامل!",
+        fullContent: `
+            <p>مع حلول 2026، أصبحت المدن الذكية تعتمد كلياً على أنظمة النقل الذاتية، وتحول الأمان السيبراني من حماية أرقام وبيانات إلى حماية الأرواح وسلامة الطرق.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                مجموعة باحثين نفذوا هجوم تشويش بصري (Sensor Spoofing) عبر توجيه نبضات ليزرية مخصصة بترددات دقيقة نحو حساسات الـ LiDAR في سيارات أجرة ذاتية القيادة. الحساسات سجلت وجود مشاة وجدران وهمية في منتصف الطريق السريع، مما جعل السيارات تضغط المكابح بشكل مفاجئ وتتوقف تماماً مسببة شللاً مرورياً كبيراً دون اختراق نظام السيارة الداخلي برمجياً!
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>دمج الحساسات المتعددة (Multi-Sensor Fusion):</strong> لا تعتمد خوارزمية القيادة على قراءة حساس واحد؛ يجب دمج قراءات الكاميرات والرادار والموجات الصوتية للتحقق من الواقع.</li>
+                <li><strong>التشفير الداخلي لشبكات السيارة (Secure CAN Bus):</strong> تشفير الرسائل المتبادلة بين كمبيوتر الترفيه وأنظمة الفرامل والتوجيه لمنع أي تلاعب عبر البلوتوث أو الشريحة.</li>
+                <li><strong>مفتاح الطوارئ اليدوي الفيزيائي (Physical Kill Switch):</strong> ضمان وجود وسيلة فصل ميكانيكية مباشرة قادرة على إعادة التحكم للإنسان في أي ظرف طارئ.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> الأمان الفيزيائي والرقمي اندمجا تماماً؛ والبرمجة الآمنة للأنظمة المدمجة (Embedded Systems) أصبحت خط الدفاع الأول عن حياة الناس.
+            </div>
+        `
+    },
+    {
+        id: "art-2026-3",
+        year: 2026,
+        category: "تسميم البيانات والذكاء الاصطناعي (Data Poisoning)",
+        readTime: "4 دقائق",
+        title: "هجمات تسميم البيانات: كيف خربوا عقل نموذج الذكاء الاصطناعي وجعلوه يوافق على قروض وهمية؟",
+        summary: "بدلاً من اختراق الخادم، المهاجمون حقنوا بيانات تدريب مغلوطة بذكاء خلت نظام الائتمان البنكي يعتبر أوراقهم المزورة مقبولة ومضمونة!",
+        fullContent: `
+            <p>في 2026 ومع اعتماد الشركات على نماذج التعلم الآلي لاتخاذ قرارات التوظيف، القروض، وتشخيص الأمراض، ظهر تهديد <strong>تسميم البيانات (Data Poisoning)</strong> كأسلوب اختراق استراتيجي صامت.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                شبكة احتيال قامت بإنشاء آلاف المعاملات وسجلات الحسابات الصغيرة والمعدلة بدقة على مدار أشهر، وتم تغذيتها في خط أنابيب تدريب نموذج المخاطر بأحد البنوك. البيانات كانت مصممة لزرع ثغرة إدراكية سرية (Backdoor Trigger) في عقل النموذج: إذا احتوى طلب القرض على تركيبة كلمات معينة وتاريخ ميلاد معين، فإن النموذج يعطيه تصنيف مخاطر منخفض جداً وموافقة فورية! المهاجمون استخدموا هذا المفتاح السري للحصول على قروض بملايين الدولارات دون أن يدق أي جرس إنذار تقليدي.
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>التحقق الصارم من خطوط تدريب البيانات (Data Lineage & Sanitization):</strong> افحص مصادر البيانات وتأكد من خلوها من الأنماط الشاذة والمدخلات الخبيثة قبل إدخالها للتدريب.</li>
+                <li><strong>فحص متانة النماذج (Adversarial Robustness Testing):</strong> اخضع نماذج الـ AI لاختبارات ضغط تكشف ما إذا كان النموذج ينحاز أو يتأثر بمدخلات خفية غير منطقية.</li>
+                <li><strong>المراقبة المستمرة لمخرجات النماذج (Model Drift & Output Auditing):</strong> حلل القرارات غير المعتادة واحتفظ بمراجعة بشرية للقرارات المالية الكبرى.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> إذا كان طعام النموذج مسموماً، فإن كل قراراته ستكون فاسدة؛ تأمين مصادر تدريب الذكاء الاصطناعي هو أساس أمان المستقبل.
+            </div>
+        `
+    },
+    {
+        id: "art-2026-4",
+        year: 2026,
+        category: "إنترنت الأجسام والأجهزة الطبية (IoB Security)",
+        readTime: "4 دقائق",
+        title: "تأمين إنترنت الأجسام (IoB): لما يصير تنظيم ضربات القلب ومضخات الإنسولين متصلة بالواي فاي!",
+        summary: "أجهزة تنظيم النبض ومضخات الأدوية أصبحت ذكية وترسل تقارير للجوال؛ كيف تم سد ثغرات البلوتوث لمنع إرسال جرعات خاطئة للمرضى؟",
+        fullContent: `
+            <p>في 2026 انتشرت الأجهزة الطبية الحيوية القابلة للزرع والارتداء (Internet of Bodies)، وتزايدت التحديات الأمنية المتعلقة ببروتوكولات الاتصال اللاسلكي منخفض الطاقة.</p>
+
+            <h4>وش اللي صار على أرض الواقع؟</h4>
+            <div class="incident-box">
+                باحثون في مؤتمرات أمنية أظهروا إمكانية اعتراض إشارات بروتوكول Bluetooth Low Energy (BLE) غير المشفرة في مضخات إنسولين ذكية من مسافة قريبة، وتنفيذ هجوم Replay Attack لتغيير أوامر الجرعة الطبية المبرمجة للمريض. استدعى هذا تحركاً فورياً من هيئات الغذاء والدواء العالمية لفرض معايير أمان صارمة تمنع تصنيع أي جهاز طبي دون شرائح تشفير عتادية مقفلة.
+            </div>
+
+            <h4>نصائح أمنية لحمايتك وحماية منشأتك:</h4>
+            <ul>
+                <li><strong>تشفير الاقتران الرقمي (Authenticated Pairing):</strong> منع أي جهاز من الاتصال بالحساسات الطبية إلا بعد اقتران برمز سري معقد ومفتاح متبادل.</li>
+                <li><strong>الحد الأقصى الفيزيائي للجرعات (Hardware Rate Limiting):</strong> وضع صمامات ميكانيكية تمنع ضخ جرعات زائدة حتى لو أصدر البرنامج أمراً برمجياً خاطئاً.</li>
+                <li><strong>إيقاف الاتصال اللاسلكي عند عدم الحاجة:</strong> إمكانية تعطيل البلوتوث في الأماكن العامة المزدحمة وتفعيل التخزين الداخلي لحين المزامنة المنزلية.</li>
+            </ul>
+
+            <div class="takeaway-box">
+                <strong>الزبدة الأمنية:</strong> كلما اقتربت التقنية من أجسادنا وصحتنا، كلما صار الأمن السيبراني هو الفارق الحقيقي بين الحياة والخطر؛ الأمان لا يقبل التهاون.
+            </div>
+        `
+    }
+];
+
+// ==========================================
+// 2. إعدادات الماوس التفاعلي الهادئ
+// ==========================================
+function initMouseTracker() {
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorGlow = document.getElementById('cursorGlow');
+    
+    if (!cursorDot || !cursorGlow) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let glowX = mouseX;
+    let glowY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        cursorDot.style.left = `${mouseX}px`;
+        cursorDot.style.top = `${mouseY}px`;
+    });
+
+    // حركة هادئة ومريحة
+    function animateCursor() {
+        glowX += (mouseX - glowX) * 0.15;
+        glowY += (mouseY - glowY) * 0.15;
+
+        cursorGlow.style.left = `${glowX}px`;
+        cursorGlow.style.top = `${glowY}px`;
+
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    const interactiveElements = document.querySelectorAll('a, button, input, .spotlight-card, .cmd-chip');
+    interactiveElements.forEach((el) => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
+    });
+
+    // تسليط ضوء هادئ وناعم على البطاقات
+    const cards = document.querySelectorAll('.spotlight-card');
+    cards.forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+    });
+}
+
+// ==========================================
+// 3. كانفاس الخلفية الهادئة (شبكة سايبر ناعمة جداً)
+// ==========================================
+function initCyberCanvas() {
+    const canvas = document.getElementById('cyberCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+
+    // تقليل عدد الجزيئات والسرعة لتكون مريحة للعين تماماً
+    const particleCount = Math.min(Math.floor(width / 32), 40);
+    const particles = [];
+
+    for (let i = 0; i < particleCount; i++) {
+        particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            radius: Math.random() * 1.5 + 0.8,
+            color: 'rgba(56, 189, 248,'
+        });
+    }
+
+    let mouseCanvas = { x: -1000, y: -1000 };
+    window.addEventListener('mousemove', (e) => {
+        mouseCanvas.x = e.clientX;
+        mouseCanvas.y = e.clientY;
+    });
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
+
+            // تفاعل ناعم مع الماوس
+            const dxMouse = mouseCanvas.x - p.x;
+            const dyMouse = mouseCanvas.y - p.y;
+            const distMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+            if (distMouse < 90) {
+                const angle = Math.atan2(dyMouse, dxMouse);
+                p.x -= Math.cos(angle) * 0.8;
+                p.y -= Math.sin(angle) * 0.8;
+            }
+
+            // رسم الجزيء بإضاءة هادئة
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color + '0.4)';
+            ctx.fill();
+
+            // خطوط اتصال رفيعة وهادئة
+            for (let j = i + 1; j < particles.length; j++) {
+                let p2 = particles[j];
+                const dx = p.x - p2.x;
+                const dy = p.y - p2.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 110) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${0.08 * (1 - dist / 110)})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(draw);
+    }
+    draw();
+}
+
+// ==========================================
+// 4. عرض المقالات والفلترة والبحث
+// ==========================================
+function renderArticles(filterYear = 'all', searchQuery = '') {
+    const container = document.getElementById('articlesContainer');
+    if (!container) return;
+
+    let filtered = cyberArticles.filter(art => {
+        const matchesYear = (filterYear === 'all' || art.year.toString() === filterYear);
+        const matchesSearch = searchQuery === '' || 
+            art.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            art.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            art.category.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesYear && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;" class="glass-card">
+                <i class="fa-solid fa-shield-virus" style="font-size: 2.5rem; color: var(--cyber-cyan); margin-bottom: 0.8rem;"></i>
+                <h3 style="color: #fff;">ما لقينا مقالات تطابق بحثك!</h3>
+                <p style="color: var(--text-secondary);">جرب تبحث بكلمة ثانية أو اختر سنة من الفلاتر اللي فوق.</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = filtered.map(art => `
+        <div class="glass-card spotlight-card article-card" data-id="${art.id}">
+            <div class="article-top">
+                <span class="article-year"><i class="fa-regular fa-calendar"></i> ${art.year}</span>
+                <span class="article-category">${art.category}</span>
+            </div>
+            <h3>${art.title}</h3>
+            <p>${art.summary}</p>
+            <div class="article-footer">
+                <span><i class="fa-regular fa-clock"></i> ${art.readTime}</span>
+                <span class="read-more-link">تفاصيل الحدث والنصيحة <i class="fa-solid fa-arrow-left"></i></span>
+            </div>
+        </div>
+    `).join('');
+
+    // تحديث تتبع الماوس للبطاقات
+    const newCards = container.querySelectorAll('.spotlight-card');
+    newCards.forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+
+        card.addEventListener('click', () => {
+            const articleId = card.getAttribute('data-id');
+            openArticleModal(articleId);
+        });
+    });
+}
+
+function openArticleModal(articleId) {
+    const article = cyberArticles.find(a => a.id === articleId);
+    if (!article) return;
+
+    const modal = document.getElementById('articleModal');
+    const modalYear = document.getElementById('modalYear');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalBody = document.getElementById('modalBody');
+
+    modalYear.textContent = article.year;
+    modalTitle.textContent = article.title;
+    modalMeta.innerHTML = `
+        <span><i class="fa-regular fa-clock"></i> وقت القراءة: ${article.readTime}</span>
+        <span><i class="fa-solid fa-tag"></i> التصنيف: ${article.category}</span>
+    `;
+    modalBody.innerHTML = article.fullContent;
+
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeArticleModal() {
+    const modal = document.getElementById('articleModal');
+    if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// ==========================================
+// 5. محاكي التيرمنال التفاعلي
+// ==========================================
+function initTerminal() {
+    const terminalInput = document.getElementById('terminalInput');
+    const terminalOutput = document.getElementById('terminalOutput');
+    const cmdChips = document.querySelectorAll('.cmd-chip, .cmd-cmd-chip');
+
+    if (!terminalInput || !terminalOutput) return;
+
+    function appendOutput(html) {
+        const line = document.createElement('div');
+        line.className = 'term-line';
+        line.innerHTML = html;
+        terminalOutput.appendChild(line);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+
+    function processCommand(rawCmd) {
+        const cmd = rawCmd.trim().toLowerCase();
+        appendOutput(`<span class="prompt-symbol">root@cyberzone:~#</span> <span class="term-user-cmd">${rawCmd}</span>`);
+
+        if (!cmd) return;
+
+        switch (cmd) {
+            case 'help':
+                appendOutput(`
+                    <div class="term-output-info">
+                        الأوامر المتاحة:<br>
+                        - <strong class="neon-text">scan</strong>: فحص سريع لحالة نظامك وأمان جهازك.<br>
+                        - <strong class="neon-text">stats</strong>: إحصائيات عامة عن هجمات السايبر.<br>
+                        - <strong class="neon-text">quote</strong>: نصيحة أمنية سريعة ومختصرة.<br>
+                        - <strong class="neon-text">whoami</strong>: أنت مين في عالم السايبر؟<br>
+                        - <strong class="neon-text">clear</strong>: تنظيف شاشة الطرفية.
+                    </div>
+                `);
+                break;
+
+            case 'scan':
+                appendOutput(`<span class="term-output-warning">⏳ جاري فحص بيئة المتصفح واتصال الشبكة...</span>`);
+                setTimeout(() => {
+                    appendOutput(`
+                        <span class="term-output-success">
+                            ✅ نتيجة الفحص: الاتصال آمن عبر بروتوكول مشفر!<br>
+                            💡 نصيحة فورية: تأكد إنك ما تعيد استخدام نفس كلمة السر في أكثر من موقع، واستخدم Password Manager محترم.
+                        </span>
+                    `);
+                }, 600);
+                break;
+
+            case 'stats':
+                appendOutput(`
+                    <div class="term-output-info">
+                        📊 إحصائيات أمنية هامة (2022 - 2026):<br>
+                        - أكثر من 80% من الاختراقات الناجحة تبدأ بهندسة اجتماعية أو تصيد إلكتروني.<br>
+                        - تفعيل التحقق بخطوتين (2FA) يمنع أكثر من 99% من محاولات الاستيلاء الآلية على الحسابات.<br>
+                        - متوسط تكلفة تسريب البيانات عالمياً تجاوز 4.5 مليون دولار للشركة الواحدة.
+                    </div>
+                `);
+                break;
+
+            case 'quote':
+                const quotes = [
+                    "🔐 الباسوورد القوي وسيلة، لكن وعيك بعدم فتح الروابط المشبوهة هو الحصن الحقيقي.",
+                    "🛡️ تذكر دائماً: النظام الآمن هو النظام المحدث أولاً بأول؛ لا تؤجل التحديثات الأمنية.",
+                    "💻 لا تثق بأي طلب تحويل مالي أو تغيير باسوورد يجيك برسالة أو اتصال إلا بعد التأكد شخصياً.",
+                    "⚡ النسخ الاحتياطي المعزول (Air-gapped) هو البطل الوحيد اللي ينقذك لو تشفرت أجهزتك."
+                ];
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                appendOutput(`<span class="term-output-success">${randomQuote}</span>`);
+                break;
+
+            case 'whoami':
+                appendOutput(`<span class="term-output-info">أنت بطل مستقبل السايبر! خطوتك الأولى تبدأ بفهم الكود والوعي الأمني. 🚀</span>`);
+                break;
+
+            case 'clear':
+                terminalOutput.innerHTML = '';
+                break;
+
+            default:
+                appendOutput(`<span class="term-output-error">❌ أمر غير معروف: '${rawCmd}'. اكتب 'help' لعرض الأوامر.</span>`);
+                break;
+        }
+    }
+
+    terminalInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            processCommand(terminalInput.value);
+            terminalInput.value = '';
+        }
+    });
+
+    cmdChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const cmd = chip.getAttribute('data-cmd');
+            if (cmd) {
+                processCommand(cmd);
+            }
+        });
+    });
+}
+
+// ==========================================
+// 6. محاكي فخاخ الواتساب ورسايل SMS
+// ==========================================
+const simScenarios = [
+    {
+        sender: "SMSA-Express",
+        status: "رسالة نصية SMS",
+        icon: "fa-solid fa-truck",
+        message: "عزيزي العميل، شحنتك رقم #9842 معلقة في المستودع الرئيسي لعدم سداد رسوم التوصيل (2.50 ريال). يرجى السداد خلال 12 ساعة لتجنب إرجاع الشحنة إلى المصدر: <br><a href='#!'>https://smsa-track-pay.xyz/pay</a>",
+        isTrap: true,
+        titleCorrect: "✅ ذيب وصاحي! كشفت الفخ بنجاح",
+        titleWrong: "❌ للأسف طحت بالفخ! انتبه لهالنقاط",
+        explanation: "هذا أشهر فخ احتيالي منتشر حالياً! المحتال يطلب مبلغ بسيط جداً (ريالين أو ثلاثة) عشان ما تشك، لكن بمجرد ما تدخل بيانات بطاقتك يسحب آلاف الريالات من حسابك!",
+        clues: [
+            "الرابط مشبوه وينتهي بـ .xyz مو رابط الشركة الرسمي المعروف.",
+            "أسلوب الاستعجال: 'خلال 12 ساعة وإلا ترجع الشحنة'؛ غرضه يربكك عشان تتصرف بدون تفكير.",
+            "شركات الشحن المعتمدة ما تطلب سداد رسوم عشوائية بروابط خارجية غريبة."
+        ]
+    },
+    {
+        sender: "خالد (زميلك)",
+        status: "واتساب - متصل الآن",
+        icon: "fa-brands fa-whatsapp",
+        message: "يا هلا والله يا غالي.. تكفى فزعتك! جالس أغير جوالي وحسابي تقفل، وارسلت كود التحقق بالغلط على رقمك.. بيوصلك كود سري من 6 أرقام الحين، تكفى حوله لي هنا بسرعة ضروري تكفى 🙏",
+        isTrap: true,
+        titleCorrect: "✅ وحش! أنقذت حسابك من السرقة",
+        titleWrong: "❌ يا ساتر! كذا سلمت حساب الواتساب للنصاب بإيدك",
+        explanation: "حساب خويك خالد تم اختراقه أصلاً! النصاب جالس يراسل كل جهات الاتصال عنده ويحاول يدخل بأرقامهم. الكود اللي بيوصلك هو كود الواتساب حقك أنت، مو حقه!",
+        clues: [
+            "مستحيل أي شركة ترسل كود شخص لرقم شخص ثاني بالغلط!",
+            "طلب رمز التحقق (OTP): القاعدة الذهبية تقول: كود التحقق لا تشاركه مع أمك وأبوك فكيف بغريب!",
+            "لو حسيت بشك، اتصل على خويك اتصال عادي واسأله بصوته."
+        ]
+    },
+    {
+        sender: "البنك الأهلي / الراجحي",
+        status: "رسالة نصية SMS",
+        icon: "fa-solid fa-building-columns",
+        message: "عميلنا العزيز: تم إيقاف بطاقتك المصرفية (مدى) لعدم تحديث الهوية الوطنية. لتفادي تجميد حسابك البنكي، يرجى الاتصال الفوري بمسؤول خدمة العملاء على الرقم: 0591234567",
+        isTrap: true,
+        titleCorrect: "✅ كفو! عرفت إن البنك ما يتصرف كذا",
+        titleWrong: "❌ انتبه! البنك عمره ما يتواصل بهالطريقة",
+        explanation: "أي اتصال أو رسالة تطلب منك الاتصال برقم جوال شخصي (059xxxxxxx) هي احتيال 100%! البنوك ما تجمد البطاقات بمكالمة جوال ولا ترسل أرقام أشخاص.",
+        clues: [
+            "الرقم المعروض هو رقم جوال شخصي مو رقم البنك الموحد المجاني.",
+            "التهديد بتجميد الحساب وإيقاف البطاقة وسيلة نفسية لإخافتك ودفعك للاتصال.",
+            "تحديث البيانات البنكية يتم حصرياً عبر تطبيق البنك الرسمي أو بزيارة الفرع."
+        ]
+    }
+];
+
+function initSimulator() {
+    let currentIdx = 0;
+    const simAvatar = document.getElementById('simAvatar');
+    const simSender = document.getElementById('simSender');
+    const simStatus = document.getElementById('simStatus');
+    const simMessage = document.getElementById('simMessage');
+    const simTabs = document.querySelectorAll('.sim-tab-btn');
+    const btnSafe = document.getElementById('btnSafe');
+    const btnTrap = document.getElementById('btnTrap');
+    const simFeedback = document.getElementById('simFeedback');
+    const feedbackBadge = document.getElementById('feedbackBadge');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackDesc = document.getElementById('feedbackDesc');
+    const feedbackClues = document.getElementById('feedbackClues');
+
+    if (!simMessage) return;
+
+    function loadScenario(idx) {
+        currentIdx = idx;
+        const s = simScenarios[idx];
+        simAvatar.innerHTML = `<i class="${s.icon}"></i>`;
+        simSender.textContent = s.sender;
+        simStatus.textContent = s.status;
+        simMessage.innerHTML = s.message;
+        simFeedback.style.display = 'none';
+
+        simTabs.forEach((tab, i) => {
+            tab.classList.toggle('active', i === idx);
+        });
+    }
+
+    simTabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => loadScenario(i));
+    });
+
+    function checkAnswer(userChoice) {
+        const s = simScenarios[currentIdx];
+        const isUserCorrect = (userChoice === 'trap' && s.isTrap) || (userChoice === 'safe' && !s.isTrap);
+
+        simFeedback.className = 'sim-feedback-box ' + (isUserCorrect ? 'correct' : 'wrong');
+        feedbackBadge.textContent = isUserCorrect ? 'تقييم ممتاز 🎯' : 'تحذير أمني ⚠️';
+        feedbackTitle.textContent = isUserCorrect ? s.titleCorrect : s.titleWrong;
+        feedbackDesc.textContent = s.explanation;
+
+        feedbackClues.innerHTML = s.clues.map(c => `
+            <li><i class="fa-solid fa-circle-check"></i> ${c}</li>
+        `).join('');
+
+        simFeedback.style.display = 'block';
+    }
+
+    if (btnSafe) btnSafe.addEventListener('click', () => checkAnswer('safe'));
+    if (btnTrap) btnTrap.addEventListener('click', () => checkAnswer('trap'));
+
+    loadScenario(0);
+}
+
+// ==========================================
+// 7. تهيئة الصفحة عند التحميل (Initialization)
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    initMouseTracker();
+    initCyberCanvas();
+    renderArticles('all');
+    initTerminal();
+    initSimulator();
+    initPolicies();
+    initCookieBanner();
+
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('articleSearch');
+
+    let currentYear = 'all';
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentYear = btn.getAttribute('data-year');
+            renderArticles(currentYear, searchInput ? searchInput.value : '');
+        });
+    });
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderArticles(currentYear, e.target.value);
+        });
+    }
+
+    const modalClose = document.getElementById('modalClose');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalOverlay = document.getElementById('articleModal');
+
+    if (modalClose) modalClose.addEventListener('click', closeArticleModal);
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeArticleModal);
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeArticleModal();
+        });
+    }
+
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (mobileToggle && navLinks) {
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('show');
+            });
+        });
+    }
+
+    const sections = document.querySelectorAll('section');
+    const navItems = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+        let currentSectionId = '';
+        sections.forEach(sec => {
+            const top = sec.offsetTop - 120;
+            if (window.scrollY >= top) {
+                currentSectionId = sec.getAttribute('id');
+            }
+        });
+
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href') === `#${currentSectionId}`) {
+                item.classList.add('active');
+            }
+        });
+    });
+});
+
+
+// ==========================================
+// 8. الصفحات الإلزامية لـ Google AdSense والكوكيز
+// ==========================================
+const sitePolicies = {
+    privacy: {
+        tag: "صفحة قانونية إلزامية",
+        title: "سياسة الخصوصية (Privacy Policy)",
+        meta: "متوافقة مع متطلبات Google AdSense و GDPR",
+        content: `
+            <div class="policy-section-block">
+                <h3>1. مقدمة والتزامنا بالخصوصية</h3>
+                <p>في منصة سايبر زون (Cyber Zone)، نعتبر خصوصية زوارنا ذات أهمية بالغة. توضح هذه الوثيقة أنواع المعلومات الشخصية التي نجمعها ونسجلها وكيف نستخدمها بما يتوافق مع معايير Google AdSense وقوانين حماية البيانات الدولية.</p>
+            </div>
+
+            <div class="policy-section-block">
+                <h3>2. ملفات تعريف الارتباط وإعلانات Google AdSense</h3>
+                <p>تستخدم Google بصفتها مورداً خارجياً ملفات تعريف الارتباط (Cookies) لعرض الإعلانات على موقعنا:</p>
+                <ul>
+                    <li><strong>ملف تعريف الارتباط DART:</strong> يتيح استخدام Google لملفات تعريف الارتباط عرض إعلانات للمستخدمين بناءً على زيارتهم لموقعنا والمواقع الأخرى على شبكة الإنترنت.</li>
+                    <li>يمكن للمستخدمين إلغاء الاشتراك في استخدام ملف تعريف الارتباط DART ومراجعة إعدادات الإعلانات من خلال زيارة <a href="https://policies.google.com/technologies/ads" target="_blank" style="color:var(--cyber-cyan);">سياسة خصوصية إعلانات Google وشبكة المحتوى</a>.</li>
+                    <li>قد تستخدم شبكات إعلانية تابعة لجهات خارجية تقنيات ملفات تعريف الارتباط وJavaScript لقياس فاعلية حملاتها الإعلانية وتخصيص محتواها، وليس لسايبر زون أي قدرة على الوصول إلى ملفات تعريف الارتباط هذه أو التحكم فيها.</li>
+                </ul>
+            </div>
+
+            <div class="policy-section-block">
+                <h3>3. ملفات السجل (Log Files)</h3>
+                <p>مثل العديد من مواقع الويب، نستخدم ملفات السجل القياسية. تتضمن المعلومات المجمعة عناوين بروتوكول الإنترنت (IP)، ونوع المتصفح، ومزود خدمة الإنترنت (ISP)، والطوابع الزمنية، والصفحات التي تمت زيارتها، وذلك لإدارة الموقع، وتحليل الاتجاهات، وتحسين جودة التجربة.</p>
+            </div>
+
+            <div class="policy-section-block">
+                <h3>4. حقوق الخصوصية للمستخدم وحماية البيانات (GDPR / CCPA)</h3>
+                <p>يحق لكل زائر طلب الوصول إلى بياناته الشخصية، أو طلب تعديلها أو حذفها. نحن لا نبيع ولا نتاجر بأي بيانات شخصية خاصة بالمستخدمين لأي جهة كانت.</p>
+            </div>
+        `
+    },
+    terms: {
+        tag: "اتفاقية الاستخدام",
+        title: "شروط الاستخدام (Terms of Service)",
+        meta: "حقوق الملكية الفكرية والالتزام بالقوانين",
+        content: `
+            <div class="policy-section-block">
+                <h3>1. قبول الشروط</h3>
+                <p>باستخدامك لمنصة سايبر زون، فإنك توافق على الالتزام بجميع الشروط والأحكام الواردة في هذه الوثيقة والقوانين المعمول بها دولياً ومحلياً.</p>
+            </div>
+
+            <div class="policy-section-block">
+                <h3>2. الاستخدام المصرح به</h3>
+                <p>جميع المواد والمقالات والأمثلة البرمجية في المنصة مقدمة حصرياً لأغراض <strong>التعليم الأكاديمي، والتوعية الأمنية، والدفاع السيبراني الأخلاقي</strong>. يُحظر تماماً استخدام أي معلومة أو كود لأي نشاط تخريبي أو اختراق غير قانوني.</p>
+            </div>
+
+            <div class="policy-section-block">
+                <h3>3. الملكية الفكرية</h3>
+                <p>جميع النصوص، والشروحات المكتوبة، والعلامات التجارية والتصاميم هي ملك لمنصة سايبر زون ومحمية بموجب حقوق النشر. يجوز الاقتباس التعليمي مع ذكر المصدر بوضوح ورابط مباشر للمنصة.</p>
+            </div>
+        `
+    },
+    disclaimer: {
+        tag: "إخلاء طرف رسمي",
+        title: "إخلاء المسؤولية (Disclaimer)",
+        meta: "بيان توضيحي لأغراض التوعية والدفاع الرقمي",
+        content: `
+            <div class="policy-section-block">
+                <h3>1. الغرض التعليمي والتوعوي</h3>
+                <p>المحتوى المنشور في سايبر زون هو جهد تعليمي وتوعوي خالص يهدف إلى تمكين المستخدمين وتثقيفهم لحماية أنفسهم من الهجمات والاحتيال الرقمي.</p>
+            </div>
+
+            <div class="policy-section-block">
+                <h3>2. إخلاء المسؤولية عن إساءة الاستخدام</h3>
+                <p>إدارة المنصة لا تتحمل أي مسؤولية قانونية أو أخلاقية عن أي تصرف خاطئ أو استخدام غير مصرح به للمعلومات والشروحات التقنية من قبل أي طرف خارج نطاق الأمان والحماية المصرح بها.</p>
+            </div>
+
+            <div class="policy-section-block">
+                <h3>3. الروابط الخارجية</h3>
+                <p>قد يحتوي الموقع على روابط تؤدي إلى مواقع خارجية لمزيد من الفائدة. لسنا مسؤولين عن سياسات الخصوصية أو محتوى أي طرف ثالث.</p>
+            </div>
+        `
+    },
+    about: {
+        tag: "نبذة عن المبادرة",
+        title: "من نحن (About Us)",
+        meta: "فريق سايبر زون ورسالتنا الرقمية",
+        content: `
+            <div class="policy-section-block">
+                <h3>رسالتنا ورؤيتنا</h3>
+                <p>سايبر زون هي مبادرة عربية رقمية مستقلة انطلقت برؤية واضحة: <strong>جعل المعرفة التقنية والأمنية متاحة ومفهومة لكل إنسان مهما كانت خبرته صفراً بالتقنية</strong>.</p>
+                <p>نؤمن بأن الوعي الرقمي لم يعد رفاهية للمبرمجين والمتخصصين، بل هو درع أساسي لكل فرد يحمل هاتفاً ذكياً لحماية نفسه وأسرته من الوقوع في فخاخ الاحتيال والهجمات المنظمة.</p>
+            </div>
+
+            <div class="policy-section-block">
+                <h3>ماذا نقدم؟</h3>
+                <ul>
+                    <li>شرح مفاهيم البرمجة بتشبيهات مستوحاة من الحياة اليومية.</li>
+                    <li>تحليل حوادث وعمليات السايبر المعاصرة بأسلوب حيادي وتوعوي مبسط.</li>
+                    <li>أدوات ومحاكيات تفاعلية لاختبار قدرة المستخدم على كشف رسائل التصيد.</li>
+                    <li>الالتزام الكامل بأعلى معايير جودة المحتوى ونزاهة المعلومة.</li>
+                </ul>
+            </div>
+        `
+    },
+    contact: {
+        tag: "تواصل مع الإدارة",
+        title: "اتصل بنا (Contact Us)",
+        meta: "دعم فني واستفسارات حول المحتوى والإعلانات",
+        content: `
+            <div class="policy-section-block">
+                <h3>يسعدنا تواصلكم دائماً</h3>
+                <p>إذا كان لديك أي استفسار حول سياسة الخصوصية، أو اقتراح لتحسين المحتوى، أو ترغب في التواصل مع فريق العمل، يمكنك مراسلتنا مباشرة عبر النموذج أدناه أو البريد الرسمي:</p>
+                <p><strong>البريد الإلكتروني الرسمي:</strong> <code style="color:var(--cyber-cyan);">contact@cyberzone.local</code></p>
+            </div>
+
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('شكراً لتواصلك! تم استلام رسالتك وسنرد عليك قريباً 📨');">
+                <div class="form-group">
+                    <label>الاسم الكامل:</label>
+                    <input type="text" placeholder="اكتب اسمك الكريم" required>
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني:</label>
+                    <input type="email" placeholder="example@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>موضوع الرسالة:</label>
+                    <input type="text" placeholder="استفسار، ملاحظة، أو اقتراح" required>
+                </div>
+                <div class="form-group">
+                    <label>نص الرسالة:</label>
+                    <textarea placeholder="اكتب رسالتك بالتفصيل..." required></textarea>
+                </div>
+                <button type="submit" class="cyber-btn primary-btn" style="margin-top:0.5rem;">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>إرسال الرسالة</span>
+                </button>
+            </form>
+        `
+    }
+};
+
+function initPolicies() {
+    const policyModal = document.getElementById('policyModal');
+    const policyModalClose = document.getElementById('policyModalClose');
+    const policyCloseBtn = document.getElementById('policyCloseBtn');
+    const policyTag = document.getElementById('policyTag');
+    const policyTitle = document.getElementById('policyTitle');
+    const policyMeta = document.getElementById('policyMeta');
+    const policyBody = document.getElementById('policyBody');
+    const openPolicyBtns = document.querySelectorAll('.open-policy-btn');
+
+    if (!policyModal) return;
+
+    function openPolicy(policyKey) {
+        const p = sitePolicies[policyKey];
+        if (!p) return;
+
+        policyTag.innerHTML = `<i class="fa-solid fa-scale-balanced"></i> ${p.tag}`;
+        policyTitle.textContent = p.title;
+        policyMeta.innerHTML = `<span><i class="fa-solid fa-shield-check"></i> ${p.meta}</span>`;
+        policyBody.innerHTML = p.content;
+
+        policyModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePolicy() {
+        policyModal.classList.remove('open');
+        document.body.style.overflow = 'auto';
+    }
+
+    openPolicyBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const policyKey = btn.getAttribute('data-policy');
+            openPolicy(policyKey);
+        });
+    });
+
+    if (policyModalClose) policyModalClose.addEventListener('click', closePolicy);
+    if (policyCloseBtn) policyCloseBtn.addEventListener('click', closePolicy);
+    policyModal.addEventListener('click', (e) => {
+        if (e.target === policyModal) closePolicy();
+    });
+}
+
+function initCookieBanner() {
+    const cookieBanner = document.getElementById('cookieBanner');
+    const cookieAccept = document.getElementById('cookieAccept');
+
+    if (!cookieBanner) return;
+
+    if (localStorage.getItem('cyberzone_cookie_consent') === 'true') {
+        cookieBanner.classList.add('hidden');
+    }
+
+    if (cookieAccept) {
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('cyberzone_cookie_consent', 'true');
+            cookieBanner.classList.add('hidden');
+        });
+    }
+}
+
+    </script>
+</body>
+</html>
